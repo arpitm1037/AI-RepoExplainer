@@ -1,0 +1,275 @@
+{
+  "repository_graph": {
+    "graph": {
+      "data/chats/bee03bdeafd24cff9e207866eab9e614/repos/customer-lifetime-proxy-ml/frontend/tailwind.config.js": [],
+      "data/chats/bee03bdeafd24cff9e207866eab9e614/repos/customer-lifetime-proxy-ml/frontend/vite.config.js": [],
+      "data/chats/bee03bdeafd24cff9e207866eab9e614/repos/customer-lifetime-proxy-ml/frontend/eslint.config.js": [],
+      "data/chats/bee03bdeafd24cff9e207866eab9e614/repos/customer-lifetime-proxy-ml/frontend/postcss.config.js": [],
+      "data/chats/bee03bdeafd24cff9e207866eab9e614/repos/customer-lifetime-proxy-ml/backend/manage.py": [
+        "os",
+        "sys",
+        "django.core.management"
+      ],
+      "data/chats/bee03bdeafd24cff9e207866eab9e614/repos/customer-lifetime-proxy-ml/backend/config/asgi.py": [
+        "os",
+        "django.core.asgi"
+      ],
+      "data/chats/bee03bdeafd24cff9e207866eab9e614/repos/customer-lifetime-proxy-ml/backend/config/__init__.py": [],
+      "data/chats/bee03bdeafd24cff9e207866eab9e614/repos/customer-lifetime-proxy-ml/backend/config/settings.py": [
+        "pathlib"
+      ],
+      "data/chats/bee03bdeafd24cff9e207866eab9e614/repos/customer-lifetime-proxy-ml/backend/config/urls.py": [
+        "django.contrib",
+        "django.urls"
+      ],
+      "data/chats/bee03bdeafd24cff9e207866eab9e614/repos/customer-lifetime-proxy-ml/backend/config/wsgi.py": [
+        "os",
+        "django.core.wsgi"
+      ],
+      "data/chats/bee03bdeafd24cff9e207866eab9e614/repos/customer-lifetime-proxy-ml/backend/ml/model_loader.py": [
+        "joblib",
+        "os"
+      ],
+      "data/chats/bee03bdeafd24cff9e207866eab9e614/repos/customer-lifetime-proxy-ml/backend/apps/__init__.py": [],
+      "data/chats/bee03bdeafd24cff9e207866eab9e614/repos/customer-lifetime-proxy-ml/backend/apps/analytics/auth_views.py": [
+        "rest_framework.decorators",
+        "rest_framework.response",
+        "django.contrib.auth.models",
+        "django.contrib.auth"
+      ],
+      "data/chats/bee03bdeafd24cff9e207866eab9e614/repos/customer-lifetime-proxy-ml/backend/apps/analytics/models.py": [
+        "django.db",
+        "django.contrib.auth.models"
+      ],
+      "data/chats/bee03bdeafd24cff9e207866eab9e614/repos/customer-lifetime-proxy-ml/backend/apps/analytics/__init__.py": [],
+      "data/chats/bee03bdeafd24cff9e207866eab9e614/repos/customer-lifetime-proxy-ml/backend/apps/analytics/apps.py": [
+        "django.apps",
+        "django.db.backends.signals"
+      ],
+      "data/chats/bee03bdeafd24cff9e207866eab9e614/repos/customer-lifetime-proxy-ml/backend/apps/analytics/admin.py": [
+        "django.contrib",
+        "models"
+      ],
+      "data/chats/bee03bdeafd24cff9e207866eab9e614/repos/customer-lifetime-proxy-ml/backend/apps/analytics/urls.py": [
+        "django.urls",
+        "views",
+        "auth_views"
+      ],
+      "data/chats/bee03bdeafd24cff9e207866eab9e614/repos/customer-lifetime-proxy-ml/backend/apps/analytics/views.py": [
+        "threading",
+        "django.db",
+        "rest_framework.decorators",
+        "rest_framework.response",
+        "rest_framework",
+        "pandas",
+        "apps.analytics.models",
+        "ml.model_loader",
+        "django.contrib.auth.models"
+      ],
+      "data/chats/bee03bdeafd24cff9e207866eab9e614/repos/customer-lifetime-proxy-ml/backend/apps/analytics/migrations/__init__.py": [],
+      "data/chats/bee03bdeafd24cff9e207866eab9e614/repos/customer-lifetime-proxy-ml/backend/apps/analytics/migrations/0001_initial.py": [
+        "django.db.models.deletion",
+        "django.db"
+      ],
+      "data/chats/bee03bdeafd24cff9e207866eab9e614/repos/customer-lifetime-proxy-ml/backend/apps/analytics/migrations/0002_analysishistory.py": [
+        "django.db.models.deletion",
+        "django.conf",
+        "django.db"
+      ],
+      "data/chats/bee03bdeafd24cff9e207866eab9e614/repos/customer-lifetime-proxy-ml/frontend/src/api/api.js": []
+    },
+    "importance_scores": {
+      "data/chats/bee03bdeafd24cff9e207866eab9e614/repos/customer-lifetime-proxy-ml/backend/apps/analytics/views.py": 23,
+      "data/chats/bee03bdeafd24cff9e207866eab9e614/repos/customer-lifetime-proxy-ml/backend/apps/analytics/auth_views.py": 22,
+      "data/chats/bee03bdeafd24cff9e207866eab9e614/repos/customer-lifetime-proxy-ml/backend/manage.py": 21,
+      "data/chats/bee03bdeafd24cff9e207866eab9e614/repos/customer-lifetime-proxy-ml/backend/apps/analytics/urls.py": 20,
+      "data/chats/bee03bdeafd24cff9e207866eab9e614/repos/customer-lifetime-proxy-ml/backend/apps/analytics/migrations/0002_analysishistory.py": 19,
+      "data/chats/bee03bdeafd24cff9e207866eab9e614/repos/customer-lifetime-proxy-ml/backend/config/asgi.py": 18,
+      "data/chats/bee03bdeafd24cff9e207866eab9e614/repos/customer-lifetime-proxy-ml/backend/config/urls.py": 17,
+      "data/chats/bee03bdeafd24cff9e207866eab9e614/repos/customer-lifetime-proxy-ml/backend/config/wsgi.py": 16,
+      "data/chats/bee03bdeafd24cff9e207866eab9e614/repos/customer-lifetime-proxy-ml/backend/ml/model_loader.py": 15,
+      "data/chats/bee03bdeafd24cff9e207866eab9e614/repos/customer-lifetime-proxy-ml/backend/apps/analytics/models.py": 14,
+      "data/chats/bee03bdeafd24cff9e207866eab9e614/repos/customer-lifetime-proxy-ml/backend/apps/analytics/apps.py": 13,
+      "data/chats/bee03bdeafd24cff9e207866eab9e614/repos/customer-lifetime-proxy-ml/backend/apps/analytics/admin.py": 12,
+      "data/chats/bee03bdeafd24cff9e207866eab9e614/repos/customer-lifetime-proxy-ml/backend/apps/analytics/migrations/0001_initial.py": 11,
+      "data/chats/bee03bdeafd24cff9e207866eab9e614/repos/customer-lifetime-proxy-ml/backend/config/settings.py": 10,
+      "data/chats/bee03bdeafd24cff9e207866eab9e614/repos/customer-lifetime-proxy-ml/frontend/tailwind.config.js": 9,
+      "data/chats/bee03bdeafd24cff9e207866eab9e614/repos/customer-lifetime-proxy-ml/frontend/vite.config.js": 8,
+      "data/chats/bee03bdeafd24cff9e207866eab9e614/repos/customer-lifetime-proxy-ml/frontend/eslint.config.js": 7,
+      "data/chats/bee03bdeafd24cff9e207866eab9e614/repos/customer-lifetime-proxy-ml/frontend/postcss.config.js": 6,
+      "data/chats/bee03bdeafd24cff9e207866eab9e614/repos/customer-lifetime-proxy-ml/backend/config/__init__.py": 5,
+      "data/chats/bee03bdeafd24cff9e207866eab9e614/repos/customer-lifetime-proxy-ml/backend/apps/__init__.py": 4,
+      "data/chats/bee03bdeafd24cff9e207866eab9e614/repos/customer-lifetime-proxy-ml/backend/apps/analytics/__init__.py": 3,
+      "data/chats/bee03bdeafd24cff9e207866eab9e614/repos/customer-lifetime-proxy-ml/backend/apps/analytics/migrations/__init__.py": 2,
+      "data/chats/bee03bdeafd24cff9e207866eab9e614/repos/customer-lifetime-proxy-ml/frontend/src/api/api.js": 1
+    }
+  },
+  "symbols": {
+    "main": {
+      "chunk_id": "dbe39e30-501a-4bb8-8201-e86ac08571cc",
+      "file_path": "data/chats/bee03bdeafd24cff9e207866eab9e614/repos/customer-lifetime-proxy-ml/backend/manage.py",
+      "chunk_type": "FunctionDef",
+      "start_line": 7,
+      "end_line": 18
+    },
+    "load_model": {
+      "chunk_id": "12c4e132-fb5f-4152-ba16-a264d51fcac4",
+      "file_path": "data/chats/bee03bdeafd24cff9e207866eab9e614/repos/customer-lifetime-proxy-ml/backend/ml/model_loader.py",
+      "chunk_type": "FunctionDef",
+      "start_line": 6,
+      "end_line": 15
+    },
+    "signup": {
+      "chunk_id": "23faaf97-b8bb-42e7-bb5d-45c490eb6af1",
+      "file_path": "data/chats/bee03bdeafd24cff9e207866eab9e614/repos/customer-lifetime-proxy-ml/backend/apps/analytics/auth_views.py",
+      "chunk_type": "FunctionDef",
+      "start_line": 7,
+      "end_line": 25
+    },
+    "login_view": {
+      "chunk_id": "7f8a94d8-3b59-4f9e-ba56-43e29a616551",
+      "file_path": "data/chats/bee03bdeafd24cff9e207866eab9e614/repos/customer-lifetime-proxy-ml/backend/apps/analytics/auth_views.py",
+      "chunk_type": "FunctionDef",
+      "start_line": 28,
+      "end_line": 44
+    },
+    "Customer": {
+      "chunk_id": "78c84c53-ee16-4e7c-8b17-d25e79b50aab",
+      "file_path": "data/chats/bee03bdeafd24cff9e207866eab9e614/repos/customer-lifetime-proxy-ml/backend/apps/analytics/models.py",
+      "chunk_type": "ClassDef",
+      "start_line": 5,
+      "end_line": 7
+    },
+    "Transaction": {
+      "chunk_id": "b4f25206-b9cb-40d7-bd37-ceda1139abab",
+      "file_path": "data/chats/bee03bdeafd24cff9e207866eab9e614/repos/customer-lifetime-proxy-ml/backend/apps/analytics/models.py",
+      "chunk_type": "ClassDef",
+      "start_line": 10,
+      "end_line": 21
+    },
+    "CustomerFeatures": {
+      "chunk_id": "74eb793b-7615-42b4-8124-c50f68b8fcbd",
+      "file_path": "data/chats/bee03bdeafd24cff9e207866eab9e614/repos/customer-lifetime-proxy-ml/backend/apps/analytics/models.py",
+      "chunk_type": "ClassDef",
+      "start_line": 24,
+      "end_line": 33
+    },
+    "Prediction": {
+      "chunk_id": "f95b2a35-4bb2-4253-8048-d35c4881dbdd",
+      "file_path": "data/chats/bee03bdeafd24cff9e207866eab9e614/repos/customer-lifetime-proxy-ml/backend/apps/analytics/models.py",
+      "chunk_type": "ClassDef",
+      "start_line": 36,
+      "end_line": 49
+    },
+    "AnalysisHistory": {
+      "chunk_id": "c1cded9c-f5ae-4d30-bccf-59f87950c7c2",
+      "file_path": "data/chats/bee03bdeafd24cff9e207866eab9e614/repos/customer-lifetime-proxy-ml/backend/apps/analytics/models.py",
+      "chunk_type": "ClassDef",
+      "start_line": 52,
+      "end_line": 56
+    },
+    "AnalyticsConfig": {
+      "chunk_id": "91581da2-9d8a-4173-9860-87173c991344",
+      "file_path": "data/chats/bee03bdeafd24cff9e207866eab9e614/repos/customer-lifetime-proxy-ml/backend/apps/analytics/apps.py",
+      "chunk_type": "ClassDef",
+      "start_line": 4,
+      "end_line": 19
+    },
+    "ready": {
+      "chunk_id": "26fbaf81-95f9-4beb-aeed-19531ce59682",
+      "file_path": "data/chats/bee03bdeafd24cff9e207866eab9e614/repos/customer-lifetime-proxy-ml/backend/apps/analytics/apps.py",
+      "chunk_type": "FunctionDef",
+      "start_line": 8,
+      "end_line": 19
+    },
+    "_sqlite_pragmas": {
+      "chunk_id": "db668d06-9538-4114-869d-aba93c9d1d5a",
+      "file_path": "data/chats/bee03bdeafd24cff9e207866eab9e614/repos/customer-lifetime-proxy-ml/backend/apps/analytics/apps.py",
+      "chunk_type": "FunctionDef",
+      "start_line": 12,
+      "end_line": 17
+    },
+    "upload_data": {
+      "chunk_id": "4b57aa74-3048-477b-a2b7-27d343a3c5ba",
+      "file_path": "data/chats/bee03bdeafd24cff9e207866eab9e614/repos/customer-lifetime-proxy-ml/backend/apps/analytics/views.py",
+      "chunk_type": "FunctionDef",
+      "start_line": 31,
+      "end_line": 153
+    },
+    "generate_features": {
+      "chunk_id": "7b251dbd-8c61-487d-9163-a0dc6190f863",
+      "file_path": "data/chats/bee03bdeafd24cff9e207866eab9e614/repos/customer-lifetime-proxy-ml/backend/apps/analytics/views.py",
+      "chunk_type": "FunctionDef",
+      "start_line": 156,
+      "end_line": 221
+    },
+    "predict": {
+      "chunk_id": "6475d9fc-9bb0-4f01-8996-2016f5884892",
+      "file_path": "data/chats/bee03bdeafd24cff9e207866eab9e614/repos/customer-lifetime-proxy-ml/backend/apps/analytics/views.py",
+      "chunk_type": "FunctionDef",
+      "start_line": 224,
+      "end_line": 270
+    },
+    "get_predictions": {
+      "chunk_id": "2b606588-0bb7-4e12-aff0-d1d2f1711815",
+      "file_path": "data/chats/bee03bdeafd24cff9e207866eab9e614/repos/customer-lifetime-proxy-ml/backend/apps/analytics/views.py",
+      "chunk_type": "FunctionDef",
+      "start_line": 273,
+      "end_line": 298
+    },
+    "get_cohorts": {
+      "chunk_id": "4b1b05c5-5c97-4767-866f-e029458e191a",
+      "file_path": "data/chats/bee03bdeafd24cff9e207866eab9e614/repos/customer-lifetime-proxy-ml/backend/apps/analytics/views.py",
+      "chunk_type": "FunctionDef",
+      "start_line": 302,
+      "end_line": 352
+    },
+    "get_customer_detail": {
+      "chunk_id": "4debd522-cd9a-45dc-b1d5-b72a49fe9b20",
+      "file_path": "data/chats/bee03bdeafd24cff9e207866eab9e614/repos/customer-lifetime-proxy-ml/backend/apps/analytics/views.py",
+      "chunk_type": "FunctionDef",
+      "start_line": 356,
+      "end_line": 382
+    },
+    "save_history": {
+      "chunk_id": "125c1548-4a56-4d40-b25c-a9bbae50deb8",
+      "file_path": "data/chats/bee03bdeafd24cff9e207866eab9e614/repos/customer-lifetime-proxy-ml/backend/apps/analytics/views.py",
+      "chunk_type": "FunctionDef",
+      "start_line": 386,
+      "end_line": 406
+    },
+    "get_history": {
+      "chunk_id": "e36c6505-c686-4991-a0c1-44aaee4b66db",
+      "file_path": "data/chats/bee03bdeafd24cff9e207866eab9e614/repos/customer-lifetime-proxy-ml/backend/apps/analytics/views.py",
+      "chunk_type": "FunctionDef",
+      "start_line": 409,
+      "end_line": 447
+    },
+    "get_history_detail": {
+      "chunk_id": "29345ba1-8b82-4e05-bfcb-00b322c6ef43",
+      "file_path": "data/chats/bee03bdeafd24cff9e207866eab9e614/repos/customer-lifetime-proxy-ml/backend/apps/analytics/views.py",
+      "chunk_type": "FunctionDef",
+      "start_line": 450,
+      "end_line": 471
+    },
+    "Migration": {
+      "chunk_id": "4ecd0f83-00a8-47e5-993b-fad55f367579",
+      "file_path": "data/chats/bee03bdeafd24cff9e207866eab9e614/repos/customer-lifetime-proxy-ml/backend/apps/analytics/migrations/0002_analysishistory.py",
+      "chunk_type": "ClassDef",
+      "start_line": 8,
+      "end_line": 26
+    }
+  },
+  "summaries": {
+    "data/chats/bee03bdeafd24cff9e207866eab9e614/repos/customer-lifetime-proxy-ml/backend/config/settings.py": "## Overview\n**Repository:** customer-lifetime-proxy-ml\n**File Path:** data/chats/bee03bdeafd24cff9e207866eab9e614/repos/customer-lifetime-proxy-ml/backend/config/settings.py\n**Framework:** Django 6.0.2\n**Subsystem:** Configuration\n\n## Issue\n* Configuration file for Django project\n* Settings for development environment\n* Security warnings for production deployment\n\n## Explanation\n### Subsystem Responsibilities\n* Defines project settings for Django application\n* Responsible for configuration of development environment\n\n### Architectural Role\n* Configuration file acts as a central hub for project settings\n* Integrates with other subsystems to enable project functionality\n\n### Important APIs\n* `django-admin startproject` API used to generate project\n* `django-admin` API used for project management\n\n### Important Classes\n* `Path` class from `pathlib` module used for path manipulation\n* `Settings` class ( implicit ) used to define project settings\n\n### Important Functions\n* `resolve()` method from `Path` class used to resolve path\n* `parent()` method from `Path` class used to get parent directory\n\n### Routing Behavior\n* No explicit routing behavior defined in this file\n* Routing behavior defined in `config.urls` file\n\n### Dependency Behavior\n* Depends on `django` framework for project functionality\n* Depends on `corsheaders` and `rest_framework` for API functionality\n\n### Middleware Behavior\n* Uses `SecurityMiddleware` for security features\n* Uses `SessionMiddleware` for session management\n* Uses `CorsMiddleware` for CORS support\n\n### Lifecycle Management\n* No explicit lifecycle management defined in this file\n* Lifecycle management handled by Django framework\n\n### Authentication Behavior\n* Uses `AuthenticationMiddleware` for authentication\n* Uses `Authorization` for authorization\n\n### Serialization Behavior\n* No explicit serialization behavior defined in this file\n* Serialization behavior handled by Django framework\n\n### Validation Behavior\n* Uses `PasswordValidator` for password validation\n* Uses `UserAttributeSimilarityValidator` for user attribute validation\n\n### Request Handling\n* No explicit request handling defined in this file\n* Request handling handled by Django framework\n\n### Response Handling\n* No explicit response handling defined in this file\n* Response handling handled by Django framework\n\n### Data Flow Concepts\n* No explicit data flow concepts defined in this file\n* Data flow handled by Django framework\n\n### Internal Framework Concepts\n* Uses `DjangoTemplates` for template rendering\n* Uses `WSGIApplication` for WSGI application\n* Uses `PostgreSQL` database for data storage",
+    "data/chats/bee03bdeafd24cff9e207866eab9e614/repos/customer-lifetime-proxy-ml/backend/apps/analytics/auth_views.py": "## Overview\n### Module: auth_views.py\n#### Path: data/chats/bee03bdeafd24cff9e207866eab9e614/repos/customer-lifetime-proxy-ml/backend/apps/analytics/auth_views.py\n#### Responsibilities:\n- Handles user authentication and signup functionality\n- Integrates with Django's built-in authentication system\n\n## Issue\n### Authentication and Signup API Endpoints\n#### Issues:\n- Insecure password validation (only checks for empty password)\n- Missing email validation (only checks for presence of '@')\n- Potential SQL injection vulnerability in User.objects.filter(username=email)\n\n## Explanation\n### Authentication and Signup APIs\n#### APIs:\n- `signup`: Handles user signup requests\n- `login_view`: Handles user login requests\n#### Important APIs:\n- `User.objects.create_user()`: Creates a new user instance\n- `User.objects.filter()`: Retrieves user instances based on username\n- `authenticate()`: Authenticates a user instance\n#### Important Classes:\n- `User`: Django's built-in user model\n#### Important Functions:\n- `signup()`: Handles user signup requests\n- `login_view()`: Handles user login requests\n#### Routing Behavior:\n- `@api_view([\"POST\"])`: Defines API endpoints for POST requests\n#### Dependency Behavior:\n- `rest_framework.decorators`: Used for API endpoint decoration\n- `django.contrib.auth.models`: Used for accessing user models\n- `django.contrib.auth`: Used for authentication functionality\n#### Middleware Behavior:\n- None\n#### Lifecycle Management:\n- User creation and authentication handled by Django's built-in system\n#### Authentication Behavior:\n- Email-based authentication\n- Password-based authentication\n#### Serialization Behavior:\n- Response data serialized as JSON\n#### Validation Behavior:\n- Email validation (presence of '@')\n- Password validation (presence check)\n- User existence validation\n#### Request Handling:\n- Handles POST requests for signup and login\n#### Response Handling:\n- Returns JSON responses for signup and login results\n#### Data Flow Concepts:\n- Data flows from request to response through API endpoints\n#### Internal Framework Concepts:\n- Django's built-in authentication system used for user management\n\n## Solution\n### Secure Authentication and Signup APIs\n#### Recommendations:\n- Implement secure password validation (e.g., password strength check)\n- Enhance email validation (e.g., email format check)\n- Use parameterized queries to prevent SQL injection vulnerabilities\n- Consider using a more secure authentication system (e.g., OAuth)",
+    "data/chats/bee03bdeafd24cff9e207866eab9e614/repos/customer-lifetime-proxy-ml/backend/apps/analytics/models.py": "## Overview\nRepository: customer-lifetime-proxy-ml\nFile Path: data/chats/bee03bdeafd24cff9e207866eab9e614/repos/customer-lifetime-proxy-ml/backend/apps/analytics/models.py\nLanguage: Python\nFramework: Django\n\n## Issue\nDjango model definitions for analytics subsystem\n\n## Explanation\n### Subsystem Responsibilities\n- Data modeling for customer lifetime value analysis\n- Customer transaction and feature data storage\n- Prediction and analysis result storage\n\n### Architectural Role\n- Data storage and retrieval component\n- Business logic component for customer lifetime value analysis\n\n### Important APIs\n- Django ORM API for database interactions\n- JSONField for storing analysis results\n\n### Important Classes\n- `Customer`: represents a customer with customer ID and country\n- `Transaction`: represents a transaction with invoice number, stock code, and quantity\n- `CustomerFeatures`: represents customer features with recency, frequency, and monetary values\n- `Prediction`: represents a prediction with predicted bucket and future spend\n- `AnalysisHistory`: represents analysis history with uploaded file name and result data\n\n### Important Functions\nNone\n\n### Routing Behavior\nNone\n\n### Dependency Behavior\n- `Customer` model depends on `User` model from Django authentication\n- `Transaction` model depends on `Customer` model\n- `CustomerFeatures` model depends on `Customer` model\n- `Prediction` model depends on `Customer` model\n- `AnalysisHistory` model depends on `User` model\n\n### Middleware Behavior\nNone\n\n### Lifecycle Management\n- Models are defined using Django's ORM API\n- Models have `created_at` fields for tracking creation timestamps\n\n### Authentication Behavior\n- `AnalysisHistory` model stores user ID for authentication purposes\n\n### Serialization Behavior\n- Models are serialized using Django's ORM API\n- `JSONField` is used for storing analysis results\n\n### Validation Behavior\n- Models have validation rules defined using Django's ORM API\n- `choices` parameter is used for validating `predicted_bucket` field in `Prediction` model\n\n### Request Handling\nNone\n\n### Response Handling\nNone\n\n### Data Flow Concepts\n- Data flows from `Transaction` model to `CustomerFeatures` model\n- Data flows from `CustomerFeatures` model to `Prediction` model\n- Data flows from `Prediction` model to `AnalysisHistory` model\n\n### Internal Framework Concepts\n- Django's ORM API is used for database interactions\n- Django's authentication system is used for user authentication",
+    "data/chats/bee03bdeafd24cff9e207866eab9e614/repos/customer-lifetime-proxy-ml/backend/apps/analytics/views.py": "## Overview\n### File Path\ndata/chats/bee03bdeafd24cff9e207866eab9e614/repos/customer-lifetime-proxy-ml/backend/apps/analytics/views.py\n\n### Subsystem Responsibilities\n- Handles data upload and processing for analytics\n- Provides APIs for uploading CSV data and generating customer features\n\n### Architectural Role\n- Part of the backend application, responsible for data processing and analytics\n\n## Issue\n### Data Upload API\n- Handles CSV file uploads and validates their contents\n- Performs data cleaning, normalization, and filtering\n- Stores processed data in the database\n\n### Customer Features Generation API\n- Generates customer features based on the uploaded data\n- Stores generated features in the database\n\n## Explanation\n### Data Upload API\n- Uses Django's `rest_framework` for API handling\n- Validates file uploads using `REJECTED_UPLOAD_CONTENT_TYPES` and `REQUIRED_COLUMNS`\n- Performs data cleaning and normalization using `pandas`\n- Stores processed data in the database using Django's ORM\n\n### Customer Features Generation API\n- Uses Django's `rest_framework` for API handling\n- Generates customer features using `CustomerFeatures` model\n- Stores generated features in the database using Django's ORM\n\n### Important APIs\n- `upload_data`: Handles CSV file uploads and validates their contents\n- `generate_features`: Generates customer features based on the uploaded data\n\n### Important Classes\n- `Customer`: Represents a customer in the database\n- `Transaction`: Represents a transaction in the database\n- `CustomerFeatures`: Represents customer features in the database\n\n### Important Functions\n- `load_model`: Loads a machine learning model for prediction\n- `pd.read_csv`: Reads a CSV file using `pandas`\n- `df.rename`: Renames columns in a pandas DataFrame\n\n### Routing Behavior\n- Uses Django's URL routing for API handling\n\n### Dependency Behavior\n- Depends on `django.db` for database interactions\n- Depends on `rest_framework` for API handling\n- Depends on `pandas` for data processing\n\n### Middleware Behavior\n- Uses `ANALYTICS_WRITE_LOCK` for thread safety\n\n### Lifecycle Management\n- Uses Django's ORM for database interactions\n- Uses `transaction.atomic()` for atomic database transactions\n\n### Authentication Behavior\n- Uses Django's built-in authentication system\n\n### Serialization Behavior\n- Uses Django's ORM for database interactions\n\n### Validation Behavior\n- Validates file uploads using `REJECTED_UPLOAD_CONTENT_TYPES` and `REQUIRED_COLUMNS`\n- Validates data using `pandas` and `df.dropna()`\n\n### Request Handling\n- Handles CSV file uploads using `upload_data` API\n- Handles customer features generation using `generate_features` API\n\n### Response Handling\n- Returns a response with a success message or an error message\n\n### Data Flow Concepts\n- Uses `pandas` for data processing and cleaning\n- Uses Django's ORM for database interactions\n\n### Internal Framework Concepts\n- Uses Django's `rest_framework` for API handling\n- Uses Django's ORM for database interactions",
+    "data/chats/bee03bdeafd24cff9e207866eab9e614/repos/customer-lifetime-proxy-ml/backend/apps/analytics/migrations/0001_initial.py": "## Overview\n### File Path\n`data/chats/bee03bdeafd24cff9e207866eab9e614/repos/customer-lifetime-proxy-ml/backend/apps/analytics/migrations/0001_initial.py`\n### File Type\nDjango database migration file\n### Purpose\nInitial database schema setup for customer lifetime analytics\n\n## Issue\n### Database Schema Design\nThe file defines the initial database schema for customer lifetime analytics, including models for customers, customer features, predictions, and transactions.\n\n## Explanation\n### Subsystem Responsibilities\n- **Customer Model**: Represents a customer with unique ID, country, and foreign key to CustomerFeatures and Prediction models.\n- **CustomerFeatures Model**: Stores customer features such as recency, frequency, monetary, tenure, and trend, with a one-to-one relationship to the Customer model.\n- **Prediction Model**: Represents a prediction made for a customer with a foreign key to the Customer model.\n- **Transaction Model**: Stores transaction data for a customer with a foreign key to the Customer model.\n### Architectural Role\nThe file plays a crucial role in defining the database schema for the customer lifetime analytics application.\n### Important APIs\n- `django.db.models.deletion.CASCADE`: Used for deleting related objects when a customer is deleted.\n- `django.db.models.ForeignKey`: Used for establishing relationships between models.\n- `django.db.models.OneToOneField`: Used for establishing a one-to-one relationship between models.\n### Important Classes\n- `Migration`: The Django migration class.\n- `Customer`, `CustomerFeatures`, `Prediction`, `Transaction`: The database models defined in the migration.\n### Important Functions\n- `create_model`: Creates a new database model.\n- `add_field`: Adds a new field to a database model.\n### Routing Behavior\nNot applicable, as this is a database migration file.\n### Dependency Behavior\nThe file depends on the `django.db` module for database operations.\n### Middleware Behavior\nNot applicable, as this is a database migration file.\n### Lifecycle Management\nThe file is responsible for setting up the initial database schema, which is executed during the application's startup.\n### Authentication Behavior\nNot applicable, as this is a database migration file.\n### Serialization Behavior\nNot applicable, as this is a database migration file.\n### Validation Behavior\nNot applicable, as this is a database migration file.\n### Request Handling\nNot applicable, as this is a database migration file.\n### Response Handling\nNot applicable, as this is a database migration file.\n### Data Flow Concepts\n- **One-to-one relationships**: Established between the Customer and CustomerFeatures models.\n- **Foreign keys**: Used to establish relationships between models.\n### Internal Framework Concepts\n- **Django ORM**: Used for interacting with the database.\n- **Django migrations**: Used for managing database schema changes.\n\n## Solution\n### Database Schema Design\nThe file provides a solid foundation for the customer lifetime analytics database schema, with clear relationships between models. However, further analysis is required to ensure that the schema meets the application's requirements and is optimized for performance.",
+    "data/chats/bee03bdeafd24cff9e207866eab9e614/repos/customer-lifetime-proxy-ml/frontend/src/api/api.js": "## Overview\n### File Path\n`data/chats/bee03bdeafd24cff9e207866eab9e614/repos/customer-lifetime-proxy-ml/frontend/src/api/api.js`\n### Subsystem Responsibilities\n- Exposes APIs for interacting with analytics backend\n- Handles HTTP requests and responses\n- Manages data serialization and deserialization\n### Architectural Role\n- API Gateway\n- Data Access Layer\n\n## Issue\nNone\n\n## Explanation\n### Important APIs\n- `uploadFile`: Uploads CSV data file to analytics backend\n- `generateFeatures`: Triggers feature generation on analytics backend\n- `runPrediction`: Triggers prediction pipeline on analytics backend\n- `getPredictions`: Fetches prediction results from analytics backend\n- `getCohorts`: Fetches cohort analysis results from analytics backend\n- `getCustomerDetail`: Fetches customer detail by ID from analytics backend\n- `signupUser`: Signs up user account on analytics backend\n- `loginUser`: Logs in user account on analytics backend\n- `saveHistory`: Saves analysis history on analytics backend\n- `getHistory`: Fetches analysis history list from analytics backend\n- `getHistoryDetail`: Fetches specific history detail from analytics backend\n\n### Important Classes\n- `axios`: Used for making HTTP requests\n\n### Important Functions\n- `uploadFile`, `generateFeatures`, `runPrediction`, `getPredictions`, `getCohorts`, `getCustomerDetail`, `signupUser`, `loginUser`, `saveHistory`, `getHistory`, `getHistoryDetail`\n\n### Routing Behavior\n- Handles HTTP requests using `axios`\n- Routes requests to analytics backend\n\n### Dependency Behavior\n- Depends on `axios` library for making HTTP requests\n\n### Middleware Behavior\n- None\n\n### Lifecycle Management\n- None\n\n### Authentication Behavior\n- Handles user authentication using `signupUser` and `loginUser` APIs\n\n### Serialization Behavior\n- Handles data serialization and deserialization using `axios`\n\n### Validation Behavior\n- None\n\n### Request Handling\n- Handles HTTP requests using `axios`\n\n### Response Handling\n- Handles HTTP responses using `axios`\n\n### Data Flow Concepts\n- Data flows from frontend to analytics backend\n\n### Internal Framework Concepts\n- Uses `axios` library for making HTTP requests\n\n## Solution\nNone"
+  },
+  "metadata": {
+    "last_repo_url": "https://github.com/arpitm1037/customer-lifetime-proxy-ml.git",
+    "last_ingested_at": "2026-05-07T14:04:52.851538+00:00"
+  }
+}

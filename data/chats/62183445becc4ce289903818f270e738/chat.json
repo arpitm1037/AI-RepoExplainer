@@ -1,0 +1,69 @@
+{
+  "meta": {
+    "chat_id": "62183445becc4ce289903818f270e738",
+    "title": "New chat",
+    "created_at": "2026-05-07T13:30:07.693898+00:00",
+    "updated_at": "2026-05-07T13:36:21.527159+00:00",
+    "repo_url": "https://github.com/Va16hav07/OJT-maker.git"
+  },
+  "messages": [
+    {
+      "role": "user",
+      "content": "What are the main modules?",
+      "ts": "19:06"
+    },
+    {
+      "role": "assistant",
+      "content": "## Overview\nThe provided repository contains several modules for generating OJT (On-the-Job Training) journal entries using Gemini AI. The main modules are responsible for data processing, transformation, and PDF manipulation.\n\n## Issue\nThe question asks for the main modules in the repository.\n\n## Explanation\nBased on the architectural and implementation context, the main modules are:\n\n* `gemini_helper.py`: Provides functionality for generating OJT journal entries using Gemini AI, handling date formatting, and splitting work into days.\n* `pdf_filler.py`: Detects and parses PDF fields, fills in PDF fields with user-provided data, and handles various field types.\n* `test_pdf_filler.py`: Test script for verifying PDF filler functionality.\n* `main.py`: The main entry point of the FastAPI application, responsible for handling incoming requests, routing them to the appropriate handlers, and managing background tasks.\n* `api/main.py`: The API gateway, responsible for handling incoming requests, routing them to the appropriate endpoint, and managing background tasks.\n\n## Solution\nThe main modules in the repository are:\n\n* `gemini_helper.py`\n* `pdf_filler.py`\n* `test_pdf_filler.py`\n* `main.py`\n* `api/main.py`",
+      "retrievalResults": [
+        {
+          "file_path": "data/chats/62183445becc4ce289903818f270e738/repos/OJT-maker/test_fields.py",
+          "start_line": 28,
+          "end_line": 85,
+          "chunk_type": "FunctionDef",
+          "symbol_name": "main",
+          "content": "def main():\n    template_path = \"ojt_template.pdf\"\n    \n    if os.path.exists(template_path):\n        print(f\"Using existing template: {template_path}\")\n        with open(template_path, \"rb\") as f:\n            pdf_bytes = f.read()\n    else:\n        print(\"Template not found. Creating a dummy 10-page template with gridlines.\")\n        pdf_bytes = create_dummy_template()\n\n    # Dummy User Details for Page 3 (Index 2)\n    user_details = {\n        \"name\": \"Jane Smith\",\n        \"registration_number\": \"REG-987654321\",\n        \"start_date\": \"2024-06-01\",\n        \"program_name\": \"B.S. Information Technology\",\n        \"semester\": \"8th Semester\",\n        \"location\": \"San Francisco, CA\",\n        \"industry_partner_name\": \"Tech Corp Innovators\",\n        \"phone_no\": \"+1 (555) 123-4567\",\n        \"email_id\": \"janesmith@example.com\"\n    }\n\n    # Dummy Journal Entries (these should start appearing from Page 8, Index 7)\n    pages_data = [\n        {\n            \"date\": \"2024-06-03\",\n            \"ojt_timing\": \"9:00 AM - 5:00 PM\",\n            \"department\": \"Engineering\",\n            \"designation\": \"Intern\",\n            \"my_space\": \"Felt good about the first day.\",\n            \"tasks_carried_out\": \"Set u",
+          "retrieval_metadata": {
+            "retrieval_source": "summary_search",
+            "final_score": 38.02,
+            "score_breakdown": {
+              "keyword_score": 14,
+              "symbol_score": 16,
+              "chunk_type_score": 1.0,
+              "content_bonus": 2,
+              "source_score": 5.0,
+              "importance_score": 0.02
+            }
+          }
+        },
+        {
+          "file_path": "data/chats/62183445becc4ce289903818f270e738/repos/OJT-maker/gemini_helper.py",
+          "start_line": 60,
+          "end_line": 103,
+          "chunk_type": "FunctionDef",
+          "symbol_name": "split_work_into_days",
+          "content": "def split_work_into_days(api_key: str, work_description: str, dates: list, num_days: int) -> list:\n    genai.configure(api_key=api_key)\n    model = genai.GenerativeModel('gemini-2.5-flash-lite')\n\n    prompt = f\"\"\"\nYou are a professional OJT training supervisor.\n\nDivide the following work into EXACTLY {num_days} day-wise entries.\n\nRULES:\n- No HR / meetings / company talk\n- Only technical/project work\n- Each day must be unique\n- Maintain progression:\n  understanding → planning → implementation → debugging → improvement\n- Each day: 2–4 meaningful sentences\n- No generic phrases\n- No repetition\n- No empty or incomplete entries\n- Use college/student-level tools (avoid professional tools like Jira, Azure, enterprise software)\n\nOUTPUT JSON ONLY:\n[\n  {{ \"day\": 1, \"work\": \"...\" }}\n]\n\nWORK:\n{work_description}\n\"\"\"\n\n    text = call_gemini(model, prompt)\n\n    daily_splits = json.loads(text)\n\n    result = []\n    for i, item in enumerate(daily_splits[:num_days]):\n        formatted_date = format_date(dates[i]) if i < len(dates) else \"\"\n        result.append({\n            \"day\": i + 1,\n            \"date\": formatted_date,\n            \"work\": item[\"work\"]\n        })\n\n    return result",
+          "retrieval_metadata": {
+            "retrieval_source": "summary_search",
+            "final_score": 37.21,
+            "score_breakdown": {
+              "keyword_score": 14,
+              "symbol_score": 16,
+              "chunk_type_score": 1.0,
+              "content_bonus": 1.183,
+              "source_score": 5.0,
+              "importance_score": 0.03
+            }
+          }
+        }
+      ],
+      "performanceMetrics": {
+        "cache_hit": false,
+        "retrieval_time": 1.56,
+        "generation_time": 0.63,
+        "total_time": 2.19
+      },
+      "ts": "19:06"
+    }
+  ]
+}

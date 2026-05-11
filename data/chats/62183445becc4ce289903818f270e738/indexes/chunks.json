@@ -1,0 +1,402 @@
+[
+  {
+    "chunk_id": "7c9aa7e7-beff-4c81-8c90-4263297e2bea",
+    "content": "def clean_text_field(text: str) -> str:\n    \"\"\"\n    Clean text field by converting JSON arrays to newline-separated text.\n    Handles formats like: ['item1', 'item2', 'item3']\n    \"\"\"\n    if not text:\n        return \"\"\n    \n    text = str(text).strip()\n    \n    # Check if it looks like a JSON array\n    if text.startswith('[') and text.endswith(']'):\n        try:\n            items = json.loads(text)\n            if isinstance(items, list):\n                # Join with newlines and clean up quotes\n                return '\\n'.join(str(item).strip() for item in items if item)\n        except (json.JSONDecodeError, ValueError):\n            pass\n    \n    # If it contains bullet points or dashes, clean them up\n    lines = text.split('\\n')\n    cleaned_lines = []\n    for line in lines:\n        line = line.strip()\n        # Remove leading bullet characters\n        line = re.sub(r'^[\\-•*]\\s*', '', line)\n        if line:\n            cleaned_lines.append(line)\n    \n    return '\\n'.join(cleaned_lines)",
+    "file_path": "data/chats/62183445becc4ce289903818f270e738/repos/OJT-maker/pdf_filler.py",
+    "start_line": 48,
+    "end_line": 78,
+    "chunk_type": "FunctionDef",
+    "symbol_name": "clean_text_field",
+    "chunk_index": 0
+  },
+  {
+    "chunk_id": "aaf7d18c-8adc-4819-bc6b-3623d47299b2",
+    "content": "def parse_ojt_timing(timing_str: str) -> tuple:\n    \"\"\"\n    Parse OJT timing string and return (start_time, end_time).\n    Handles formats like \"3:30 PM – 6:30 PM\" or \"3:30 PM-6:30 PM\"\n    \n    Args:\n        timing_str: Timing string like \"3:30 PM – 6:30 PM\"\n    \n    Returns:\n        Tuple of (start_time, end_time) like (\"3:30 PM\", \"6:30 PM\")\n    \"\"\"\n    if not timing_str:\n        return \"\", \"\"\n    \n    # Split by common delimiters: –, -, or \"to\"\n    import re\n    parts = re.split(r'[–\\-]|\\bto\\b', timing_str, flags=re.IGNORECASE)\n    \n    if len(parts) >= 2:\n        start = parts[0].strip()\n        end = parts[1].strip()\n        return start, end\n    \n    return timing_str.strip(), \"\"",
+    "file_path": "data/chats/62183445becc4ce289903818f270e738/repos/OJT-maker/pdf_filler.py",
+    "start_line": 81,
+    "end_line": 104,
+    "chunk_type": "FunctionDef",
+    "symbol_name": "parse_ojt_timing",
+    "chunk_index": 1
+  },
+  {
+    "chunk_id": "927f9f79-6538-4713-abe4-8c6a6abdcb22",
+    "content": "def detect_pdf_fields(pdf_bytes: bytes) -> dict:\n    \"\"\"Detect AcroForm fields in the PDF and return {field_name: page_index} mapping.\"\"\"\n    fields = {}\n    try:\n        reader = PyPDF2.PdfReader(io.BytesIO(pdf_bytes))\n        if reader.trailer.get(\"/Root\") and reader.trailer[\"/Root\"].get(\"/AcroForm\"):\n            acroform = reader.trailer[\"/Root\"][\"/AcroForm\"]\n            if \"/Fields\" in acroform:\n                for field_ref in acroform[\"/Fields\"]:\n                    field = field_ref.get_object()\n                    name = field.get(\"/T\", \"\")\n                    fields[str(name)] = field\n    except Exception:\n        pass\n    return fields",
+    "file_path": "data/chats/62183445becc4ce289903818f270e738/repos/OJT-maker/pdf_filler.py",
+    "start_line": 107,
+    "end_line": 121,
+    "chunk_type": "FunctionDef",
+    "symbol_name": "detect_pdf_fields",
+    "chunk_index": 2
+  },
+  {
+    "chunk_id": "392150d2-5dd6-436a-805e-fe20cc90dba8",
+    "content": "def detect_field_positions_from_text(pdf_bytes: bytes) -> dict:\n    \"\"\"\n    Stub function - field detection not needed on Vercel.\n    Returns empty dict to use hardcoded coordinates.\n    \"\"\"\n    return {}",
+    "file_path": "data/chats/62183445becc4ce289903818f270e738/repos/OJT-maker/pdf_filler.py",
+    "start_line": 124,
+    "end_line": 129,
+    "chunk_type": "FunctionDef",
+    "symbol_name": "detect_field_positions_from_text",
+    "chunk_index": 3
+  },
+  {
+    "chunk_id": "f1069de5-f6fa-4b03-8600-545e351258a2",
+    "content": "def _wrap_text(text: str, font_name: str, font_size: float, max_width: float) -> list:\n    \"\"\"Wrap text to fit within max_width, return list of lines.\"\"\"\n    lines = []\n    for paragraph in str(text).splitlines():\n        if not paragraph.strip():\n            lines.append(\"\")\n            continue\n        wrapped = simpleSplit(paragraph, font_name, font_size, max_width)\n        lines.extend(wrapped if wrapped else [\"\"])\n    return lines",
+    "file_path": "data/chats/62183445becc4ce289903818f270e738/repos/OJT-maker/pdf_filler.py",
+    "start_line": 132,
+    "end_line": 141,
+    "chunk_type": "FunctionDef",
+    "symbol_name": "_wrap_text",
+    "chunk_index": 4
+  },
+  {
+    "chunk_id": "7b58cf88-246d-4d4f-904b-47eece43b934",
+    "content": "def _build_overlay_page(c_canvas, page_data: dict, page_width: float, page_height: float,\n                        detected_positions: dict, page_num: int):\n    \"\"\"Draw all fields onto the reportlab canvas for one page.\"\"\"\n    scale_x = page_width / A4_WIDTH\n    scale_y = page_height / A4_HEIGHT\n\n    font_name = \"Helvetica\"\n    line_height_factor = 1.4\n\n    # Parse ojt_timing if it contains a range (e.g., \"3:30 PM – 6:30 PM\")\n    ojt_timing_str = page_data.get(\"ojt_timing\", \"\")\n    ojt_timing_start, ojt_timing_end = parse_ojt_timing(ojt_timing_str)\n\n    fields_to_draw = {\n        \"date\":                 page_data.get(\"date\", \"\"),\n        \"ojt_timing_start\":     ojt_timing_start,\n        \"ojt_timing_end\":       ojt_timing_end,\n        \"department\":           page_data.get(\"department\", \"\"),\n        \"designation\":          page_data.get(\"designation\", \"\"),\n        \"my_space\":             clean_text_field(page_data.get(\"my_space\", \"\")),\n        \"tasks_carried_out\":    clean_text_field(page_data.get(\"tasks_carried_out\", \"\")),\n        \"key_learnings\":        clean_text_field(page_data.get(\"key_learnings\", \"\")),\n        \"tools_used\":           clean_text_field(page_data.get(\"tools_used\", \"\")),\n        \"special_achievements\": clean_text_field(page_data.get(\"special_achievements\", \"\")),\n    }\n\n    # Add the new person/program fields\n    new_fields = [\"name\", \"registration_number\", \"start_date\", \"program_name\", \"semester\", \"location\", \"industry_partner_name\", \"phone_no\", \"email_id\"]\n    for f in new_fields:\n        if page_data.get(f):\n            # Format start_date using ordinal format\n            if f == \"start_date\":\n                fields_to_draw[f] = format_date(page_data[f])\n            else:\n                fields_to_draw[f] = page_data[f]\n\n    for field_key, text_value in fields_to_draw.items():\n        if not text_value:\n            continue\n\n        # Determine coordinates: prefer detected > hardcoded\n        if field_key in detected_positions and detected_positions[field_key][\"page\"] == page_num:\n            pos = detected_positions[field_key]\n            x = pos[\"x\"] * scale_x\n            y = pos[\"y\"] * scale_y\n            max_width = FIELD_COORDS[field_key][\"max_width\"] * scale_x\n            font_size = FIELD_COORDS[field_key][\"font_size\"]\n            max_lines = FIELD_COORDS[field_key].get(\"max_lines\", 1)\n        else:\n            coords = FIELD_COORDS[field_key]\n            x = coords[\"x\"] * scale_x\n            y = coords[\"y\"] * scale_y\n            max_width = coords[\"max_width\"] * scale_x\n            font_size = coords[\"font_size\"]\n            max_lines = coords.get(\"max_lines\", 1)\n\n        c_canvas.setFont(font_name, font_size)\n        c_canvas.setFillColorRGB(0, 0, 0)\n        line_height = font_size * line_height_factor\n\n        if max_lines == 1:\n            # Single line: truncate if needed\n            lines = _wrap_text(str(text_value), font_name, font_size, max_width)\n            c_canvas.drawString(x, y, lines[0] if lines else str(text_value))\n        else:\n            lines = _wrap_text(str(text_value), font_name, font_size, max_width)\n            lines = lines[:max_lines]\n            for i, line in enumerate(lines):\n                c_canvas.drawString(x, y - i * line_height, line)",
+    "file_path": "data/chats/62183445becc4ce289903818f270e738/repos/OJT-maker/pdf_filler.py",
+    "start_line": 144,
+    "end_line": 212,
+    "chunk_type": "FunctionDef",
+    "symbol_name": "_build_overlay_page",
+    "chunk_index": 5
+  },
+  {
+    "chunk_id": "eeb6b00f-4941-47d7-ab37-801faa365a21",
+    "content": "def fill_pdf_with_overlay(pdf_bytes: bytes, pages_data: list, user_details=None, journal_start_page: int = 8, journal_end_page: int = None) -> bytes:\n    \"\"\"\n    Fill the PDF template with journal data.\n\n    Strategy:\n    1. Fall back to scanning text labels for field positions.\n    2. Fall back to hardcoded A4 coordinates.\n    Always uses reportlab overlay merged with PyPDF2.\n\n    Args:\n        pdf_bytes: Original PDF template bytes.\n        pages_data: List of dicts, one per output page, each with keys:\n            date, ojt_timing, department, designation, my_space,\n            tasks_carried_out, key_learnings, tools_used, special_achievements\n        user_details: Dict of user details to place on the 3rd page.\n\n    Returns:\n        Filled PDF as bytes.\n    \"\"\"\n    # --- Detect positions from text labels (best-effort) ---\n    detected_positions = {}\n    try:\n        detected_positions = detect_field_positions_from_text(pdf_bytes)\n    except Exception:\n        pass\n\n    # --- Get page count and sizes using PyPDF2 ---\n    original_reader = PyPDF2.PdfReader(io.BytesIO(pdf_bytes))\n    num_template_pages = len(original_reader.pages)\n    \n    # Get page sizes - use A4 as default\n    page_sizes = []\n    for i in range(num_template_pages):\n        try:\n            page = original_reader.pages[i]\n            # Get page mediabox dimensions\n            mediabox = page.mediabox\n            width = float(mediabox.width)\n            height = float(mediabox.height)\n            page_sizes.append((width, height))\n        except Exception:\n            page_sizes.append((A4_WIDTH, A4_HEIGHT))\n\n    # Handle dynamic journal page offsets\n    journal_start_idx = max(0, journal_start_page - 1)\n    \n    if journal_end_page is not None:\n        max_journal_pages = max(0, journal_end_page - journal_start_page + 1)\n        pages_data = pages_data[:max_journal_pages]\n\n    # Number of output pages = max(template pages, len(pages_data) + journal_start_idx)\n    num_output_pages = max(num_template_pages, len(pages_data) + journal_start_idx)\n\n    # --- Build overlay PDF with reportlab ---\n    overlay_buffer = io.BytesIO()\n    c = canvas.Canvas(overlay_buffer)\n\n    for page_idx in range(num_output_pages):\n        # Determine page size (use template page size if available)\n        if page_idx < len(page_sizes):\n            pw, ph = page_sizes[page_idx]\n        else:\n            pw, ph = page_sizes[-1] if page_sizes else (A4_WIDTH, A4_HEIGHT)\n\n        c.setPageSize((pw, ph))\n\n        # Get data for this page\n        page_data = {}\n        if page_idx == 2 and user_details:\n            page_data.update(user_details)\n            \n        if page_idx >= journal_start_idx:\n            journal_idx = page_idx - journal_start_idx\n            if journal_idx < len(pages_data):\n                page_data.update(pages_data[journal_idx])\n\n        _build_overlay_page(c, page_data, pw, ph, detected_positions, page_idx)\n        c.showPage()\n\n    c.save()\n    overlay_buffer.seek(0)\n\n    # --- Merge overlay with original PDF using PyPDF2 ---\n    overlay_reader = PyPDF2.PdfReader(overlay_buffer)\n    writer = PyPDF2.PdfWriter()\n\n    for page_idx in range(num_output_pages):\n        # Get original page (repeat last if template is shorter than data)\n        if page_idx < len(original_reader.pages):\n            orig_page = original_reader.pages[page_idx]\n        elif original_reader.pages:\n            # Clone last page\n            orig_page = original_reader.pages[-1]\n        else:\n            orig_page = None\n\n        overlay_page = overlay_reader.pages[page_idx]\n\n        if orig_page is not None:\n            orig_page.merge_page(overlay_page)\n            writer.add_page(orig_page)\n        else:\n            writer.add_page(overlay_page)\n\n    output_buffer = io.BytesIO()\n    writer.write(output_buffer)\n    output_buffer.seek(0)\n    return output_buffer.read()",
+    "file_path": "data/chats/62183445becc4ce289903818f270e738/repos/OJT-maker/pdf_filler.py",
+    "start_line": 215,
+    "end_line": 322,
+    "chunk_type": "FunctionDef",
+    "symbol_name": "fill_pdf_with_overlay",
+    "chunk_index": 6
+  },
+  {
+    "chunk_id": "c3482e2e-7d58-45f3-b79c-8bec1e455c7a",
+    "content": "def get_ordinal_suffix(day: int) -> str:\n    if 11 <= (day % 100) <= 13:\n        return 'th'\n    return {1: 'st', 2: 'nd', 3: 'rd'}.get(day % 10, 'th')",
+    "file_path": "data/chats/62183445becc4ce289903818f270e738/repos/OJT-maker/gemini_helper.py",
+    "start_line": 11,
+    "end_line": 14,
+    "chunk_type": "FunctionDef",
+    "symbol_name": "get_ordinal_suffix",
+    "chunk_index": 0
+  },
+  {
+    "chunk_id": "e4395bfd-ed39-454e-8d3d-bfcfa095ab1b",
+    "content": "def format_date(date_str: str) -> str:\n    try:\n        for fmt in [\"%Y-%m-%d\", \"%d-%m-%Y\", \"%d/%m/%Y\", \"%Y/%m/%d\", \"%d-%m-%y\"]:\n            try:\n                parsed = datetime.strptime(date_str, fmt)\n                day = parsed.day\n                suffix = get_ordinal_suffix(day)\n                return parsed.strftime(f\"{day}{suffix} %B %Y\")\n            except ValueError:\n                continue\n        return date_str\n    except Exception:\n        return date_str",
+    "file_path": "data/chats/62183445becc4ce289903818f270e738/repos/OJT-maker/gemini_helper.py",
+    "start_line": 16,
+    "end_line": 28,
+    "chunk_type": "FunctionDef",
+    "symbol_name": "format_date",
+    "chunk_index": 1
+  },
+  {
+    "chunk_id": "84f3984f-9ba2-4e72-a88c-6824a56d38ca",
+    "content": "def call_gemini(model, prompt, retries=3):\n    for i in range(retries):\n        try:\n            response = model.generate_content(\n                prompt,\n                generation_config={\n                    \"temperature\": 0.4,\n                    \"top_p\": 0.9,\n                }\n            )\n            text = response.text.strip()\n            text = re.sub(r'^```(?:json)?\\s*', '', text)\n            text = re.sub(r'\\s*```$', '', text)\n            return text\n\n        except Exception as e:\n            if \"429\" in str(e):\n                time.sleep(40)\n            else:\n                raise e\n    raise Exception(\"Gemini failed after retries\")",
+    "file_path": "data/chats/62183445becc4ce289903818f270e738/repos/OJT-maker/gemini_helper.py",
+    "start_line": 34,
+    "end_line": 54,
+    "chunk_type": "FunctionDef",
+    "symbol_name": "call_gemini",
+    "chunk_index": 2
+  },
+  {
+    "chunk_id": "73ea34ec-0bd2-4861-aa30-dd42eb83b918",
+    "content": "def split_work_into_days(api_key: str, work_description: str, dates: list, num_days: int) -> list:\n    genai.configure(api_key=api_key)\n    model = genai.GenerativeModel('gemini-2.5-flash-lite')\n\n    prompt = f\"\"\"\nYou are a professional OJT training supervisor.\n\nDivide the following work into EXACTLY {num_days} day-wise entries.\n\nRULES:\n- No HR / meetings / company talk\n- Only technical/project work\n- Each day must be unique\n- Maintain progression:\n  understanding → planning → implementation → debugging → improvement\n- Each day: 2–4 meaningful sentences\n- No generic phrases\n- No repetition\n- No empty or incomplete entries\n- Use college/student-level tools (avoid professional tools like Jira, Azure, enterprise software)\n\nOUTPUT JSON ONLY:\n[\n  {{ \"day\": 1, \"work\": \"...\" }}\n]\n\nWORK:\n{work_description}\n\"\"\"\n\n    text = call_gemini(model, prompt)\n\n    daily_splits = json.loads(text)\n\n    result = []\n    for i, item in enumerate(daily_splits[:num_days]):\n        formatted_date = format_date(dates[i]) if i < len(dates) else \"\"\n        result.append({\n            \"day\": i + 1,\n            \"date\": formatted_date,\n            \"work\": item[\"work\"]\n        })\n\n    return result",
+    "file_path": "data/chats/62183445becc4ce289903818f270e738/repos/OJT-maker/gemini_helper.py",
+    "start_line": 60,
+    "end_line": 103,
+    "chunk_type": "FunctionDef",
+    "symbol_name": "split_work_into_days",
+    "chunk_index": 3
+  },
+  {
+    "chunk_id": "17f40e91-5d15-4794-80b0-923c72eb0b68",
+    "content": "def generate_all_journals(api_key: str, daily_data: list) -> list:\n    genai.configure(api_key=api_key)\n    model = genai.GenerativeModel('gemini-2.5-flash-lite')\n\n    combined_input = \"\\n\".join([\n        f\"Day {d['day']} ({d['date']}): {d['work']}\"\n        for d in daily_data\n    ])\n\n    prompt = f\"\"\"\nGenerate professional OJT daily journal entries for college students.\n\nRULES:\n- Each day must be unique\n- No repetition\n- No HR/company content\n- Keep concise and realistic\n- Avoid professional/enterprise tools (no Jira, Azure, Salesforce, etc.)\n- Use college-friendly tools: Python, JavaScript, Git, SQL, VS Code, Linux, React, etc.\n\nFor EACH day return:\n- my_space: Minimum 4 lines of detailed personal reflection\n- tasks_carried_out: List items separated by NEWLINE (NOT array)\n- key_learnings: List items separated by NEWLINE (NOT array)\n- tools_used: comma-separated list\n- special_achievements: 1-2 lines (NEVER \"N/A\")\n\nOUTPUT JSON (use plain text with newlines for multi-line fields):\n[\n  {{\n    \"day\": 1,\n    \"my_space\": \"reflection text\",\n    \"tasks_carried_out\": \"Task 1\\\\nTask 2\\\\nTask 3\",\n    \"key_learnings\": \"Learning 1\\\\nLearning 2\",\n    \"tools_used\": \"tool1, tool2, tool3\",\n    \"special_achievements\": \"achievement text\"\n  }}\n]\n\nINPUT:\n{combined_input}\n\"\"\"\n\n    text = call_gemini(model, prompt)\n\n    return json.loads(text)",
+    "file_path": "data/chats/62183445becc4ce289903818f270e738/repos/OJT-maker/gemini_helper.py",
+    "start_line": 109,
+    "end_line": 154,
+    "chunk_type": "FunctionDef",
+    "symbol_name": "generate_all_journals",
+    "chunk_index": 4
+  },
+  {
+    "chunk_id": "06f298ea-e100-4a00-a90a-c6c5e33834fd",
+    "content": "def generate_full_entries(api_key: str, work_description: str, dates: list):\n    num_days = len(dates)\n\n    # Step 1: Split\n    daily_split = split_work_into_days(api_key, work_description, dates, num_days)\n\n    # Step 2: Generate ALL entries (1 API call)\n    journal_data = generate_all_journals(api_key, daily_split)\n\n    # Merge\n    final = []\n    for i in range(num_days):\n        entry = journal_data[i]\n        base = daily_split[i]\n\n        final.append({\n            \"date_display\": base[\"date\"],\n            \"my_space\": entry[\"my_space\"],\n            \"tasks_carried_out\": entry[\"tasks_carried_out\"],\n            \"key_learnings\": entry[\"key_learnings\"],\n            \"tools_used\": entry[\"tools_used\"],\n            \"special_achievements\": entry[\"special_achievements\"],\n        })\n\n    return final",
+    "file_path": "data/chats/62183445becc4ce289903818f270e738/repos/OJT-maker/gemini_helper.py",
+    "start_line": 160,
+    "end_line": 184,
+    "chunk_type": "FunctionDef",
+    "symbol_name": "generate_full_entries",
+    "chunk_index": 5
+  },
+  {
+    "chunk_id": "351479ed-6298-4435-9316-b8a12af9c1b8",
+    "content": "def generate_journal_entry(api_key: str, date: str, work: str) -> dict:\n    \"\"\"Generate structured journal entry for one day using Gemini.\"\"\"\n    genai.configure(api_key=api_key)\n    model = genai.GenerativeModel('gemini-2.5-flash-lite')\n    \n    # Format date to DD-M-YYYY\n    formatted_date = format_date(date)\n\n    prompt = f\"\"\"Generate a professional internship daily journal entry for a college student.\n\nDate: {formatted_date}\nWork Done: {work}\n\nReturn ONLY a valid JSON object (no markdown, no explanation):\n{{\n  \"my_space\": \"Detailed personal reflection (Minimum 4 sentences/lines)\",\n  \"tasks_carried_out\": \"Task 1\\\\nTask 2\\\\nTask 3\\\\nTask 4\",\n  \"key_learnings\": \"Learning 1\\\\nLearning 2\\\\nLearning 3\",\n  \"tools_used\": \"tool1, tool2, tool3\",\n  \"special_achievements\": \"Achievement description (1-2 sentences)\"\n}}\n\nIMPORTANT:\n- Use college/student-level tools only (Python, JavaScript, Git, VS Code, Linux, React, etc.)\n- AVOID professional tools like Jira, Azure, Salesforce, enterprise software\n- Use plain newlines (\\\\n) between items for multi-line fields, NOT JSON arrays\n- Each task/learning should be a complete sentence\n- Keep it concise, professional, realistic, and non-repetitive\"\"\"\n\n    text = call_gemini(model, prompt)\n    return json.loads(text)",
+    "file_path": "data/chats/62183445becc4ce289903818f270e738/repos/OJT-maker/gemini_helper.py",
+    "start_line": 190,
+    "end_line": 220,
+    "chunk_type": "FunctionDef",
+    "symbol_name": "generate_journal_entry",
+    "chunk_index": 6
+  },
+  {
+    "chunk_id": "99d2cd98-af44-4031-81f8-0044507bdd6b",
+    "content": "def create_dummy_template(num_pages=10):\n    \"\"\"Create a basic blank PDF with some text if no template is found.\"\"\"\n    buf = io.BytesIO()\n    c = canvas.Canvas(buf, pagesize=A4)\n    for i in range(num_pages):\n        c.drawString(50, 800, f\"-- Dummy Template Page {i+1} --\")\n        # Draw a grid or rulers to help visualize coordinates\n        c.setStrokeColorRGB(0.8, 0.8, 0.8)\n        for y in range(0, 842, 50):\n            c.line(0, y, 595, y)\n            c.setFont(\"Helvetica\", 6)\n            c.drawString(10, y + 2, f\"y={y}\")\n        for x in range(0, 595, 50):\n            c.line(x, 0, x, 842)\n            c.drawString(x + 2, 10, f\"x={x}\")\n            \n        c.showPage()\n    c.save()\n    buf.seek(0)\n    return buf.read()",
+    "file_path": "data/chats/62183445becc4ce289903818f270e738/repos/OJT-maker/test_fields.py",
+    "start_line": 7,
+    "end_line": 26,
+    "chunk_type": "FunctionDef",
+    "symbol_name": "create_dummy_template",
+    "chunk_index": 0
+  },
+  {
+    "chunk_id": "ff4d95d7-f3f1-4553-b818-1344509314e5",
+    "content": "def main():\n    template_path = \"ojt_template.pdf\"\n    \n    if os.path.exists(template_path):\n        print(f\"Using existing template: {template_path}\")\n        with open(template_path, \"rb\") as f:\n            pdf_bytes = f.read()\n    else:\n        print(\"Template not found. Creating a dummy 10-page template with gridlines.\")\n        pdf_bytes = create_dummy_template()\n\n    # Dummy User Details for Page 3 (Index 2)\n    user_details = {\n        \"name\": \"Jane Smith\",\n        \"registration_number\": \"REG-987654321\",\n        \"start_date\": \"2024-06-01\",\n        \"program_name\": \"B.S. Information Technology\",\n        \"semester\": \"8th Semester\",\n        \"location\": \"San Francisco, CA\",\n        \"industry_partner_name\": \"Tech Corp Innovators\",\n        \"phone_no\": \"+1 (555) 123-4567\",\n        \"email_id\": \"janesmith@example.com\"\n    }\n\n    # Dummy Journal Entries (these should start appearing from Page 8, Index 7)\n    pages_data = [\n        {\n            \"date\": \"2024-06-03\",\n            \"ojt_timing\": \"9:00 AM - 5:00 PM\",\n            \"department\": \"Engineering\",\n            \"designation\": \"Intern\",\n            \"my_space\": \"Felt good about the first day.\",\n            \"tasks_carried_out\": \"Set up development environment.\\nMet the team.\\nRead project docs.\",\n            \"key_learnings\": \"Learned about the company stack.\",\n            \"tools_used\": \"Git, Docker, VS Code\",\n            \"special_achievements\": \"Successfully completed onboarding.\"\n        },\n        {\n            \"date\": \"2024-06-04\",\n            \"ojt_timing\": \"9:00 AM - 5:00 PM\",\n            \"department\": \"Engineering\",\n            \"designation\": \"Intern\",\n            \"my_space\": \"A bit overwhelmed but learning.\",\n            \"tasks_carried_out\": \"Fixed a minor bug.\\nWrote unit tests.\",\n            \"key_learnings\": \"Jest testing framework.\",\n            \"tools_used\": \"Jest, Node.js\",\n            \"special_achievements\": \"First merged PR!\"\n        }\n    ]\n\n    print(\"Generating test PDF...\")\n    output_bytes = fill_pdf_with_overlay(pdf_bytes, pages_data, user_details)\n    \n    output_filename = \"test_layout_output.pdf\"\n    with open(output_filename, \"wb\") as f:\n        f.write(output_bytes)\n        \n    print(f\"Done! Open '{output_filename}' to review the positions.\")",
+    "file_path": "data/chats/62183445becc4ce289903818f270e738/repos/OJT-maker/test_fields.py",
+    "start_line": 28,
+    "end_line": 85,
+    "chunk_type": "FunctionDef",
+    "symbol_name": "main",
+    "chunk_index": 1
+  },
+  {
+    "chunk_id": "388f688d-9554-4dfd-bc8a-8e5f0c9dbcc9",
+    "content": "async def http_exception_handler(request, exc):\n    if exc.status_code == 413:\n        return JSONResponse(\n            status_code=413,\n            content={\"error\": \"File too large. Maximum upload size is 50MB. Please use a smaller PDF or compress it.\"}\n        )\n    return JSONResponse(status_code=exc.status_code, content={\"error\": str(exc.detail)})",
+    "file_path": "data/chats/62183445becc4ce289903818f270e738/repos/OJT-maker/main.py",
+    "start_line": 39,
+    "end_line": 45,
+    "chunk_type": "AsyncFunctionDef",
+    "symbol_name": "http_exception_handler",
+    "chunk_index": 0
+  },
+  {
+    "chunk_id": "ca8d2500-c547-4fd2-b97b-44d37c3aea3f",
+    "content": "def cleanup_old_tasks():\n    \"\"\"Remove tasks and temp files older than TASK_TTL_SECONDS.\"\"\"\n    now = time.time()\n    stale = [tid for tid, ts in list(task_timestamps.items()) if now - ts > TASK_TTL_SECONDS]\n    for tid in stale:\n        path = task_files.pop(tid, None)\n        if path and os.path.exists(path):\n            try:\n                os.unlink(path)\n            except OSError:\n                pass\n        tasks.pop(tid, None)\n        task_timestamps.pop(tid, None)",
+    "file_path": "data/chats/62183445becc4ce289903818f270e738/repos/OJT-maker/main.py",
+    "start_line": 55,
+    "end_line": 67,
+    "chunk_type": "FunctionDef",
+    "symbol_name": "cleanup_old_tasks",
+    "chunk_index": 1
+  },
+  {
+    "chunk_id": "fb405596-1129-4d07-a467-a9b44e0ad53b",
+    "content": "def get_working_days(start: datetime, end: datetime, skip: list) -> list:\n    \"\"\"Return list of date strings (YYYY-MM-DD) for Mon-Sat between start and end, excluding skip.\"\"\"\n    skip_set = set()\n    for s in skip:\n        s = s.strip()\n        if s:\n            try:\n                skip_set.add(parse_date(s).date())\n            except Exception:\n                pass\n\n    days = []\n    current = start.date()\n    end_date = end.date()\n    while current <= end_date:\n        if current.weekday() < 6 and current not in skip_set:\n            days.append(current.strftime(\"%Y-%m-%d\"))\n        current += timedelta(days=1)\n    return days",
+    "file_path": "data/chats/62183445becc4ce289903818f270e738/repos/OJT-maker/main.py",
+    "start_line": 74,
+    "end_line": 92,
+    "chunk_type": "FunctionDef",
+    "symbol_name": "get_working_days",
+    "chunk_index": 2
+  },
+  {
+    "chunk_id": "442ed331-30aa-42ff-b26a-493ab26ec6e7",
+    "content": "def generate_pdf_background(task_id: str, api_key: str):\n    \"\"\"Background thread: generate all journal entries and fill PDF.\"\"\"\n    task = tasks.get(task_id)\n    if not task:\n        return\n\n    try:\n        task[\"status\"] = \"generating\"\n        task[\"progress\"] = 0\n        daily_work = task[\"daily_work\"]\n        pdf_bytes = task[\"pdf_bytes\"]\n        ojt_timing = task[\"ojt_timing\"]\n        department = task[\"department\"]\n        designation = task[\"designation\"]\n        user_details = task.get(\"user_details\", {})\n        journal_start_page = task.get(\"journal_start_page\", 8)\n        journal_end_page = task.get(\"journal_end_page\")\n        total = len(daily_work)\n\n        # STEP 1: Generate ALL entries in ONE API call\n        task[\"message\"] = \"Generating all journal entries...\"\n        print(f\"[Task {task_id}] Generating all entries in one call...\")\n\n        try:\n            all_entries = generate_all_journals(api_key, daily_work)\n            print(f\"[Task {task_id}] All entries generated successfully\")\n        except Exception as exc:\n            print(f\"[Task {task_id}] ERROR (batch): {exc}\")\n            print(traceback.format_exc())\n\n            # fallback: create basic entries\n            all_entries = []\n            for day_item in daily_work:\n                all_entries.append({\n                    \"my_space\": \"Worked on assigned tasks for the day.\",\n                    \"tasks_carried_out\": day_item[\"work\"],\n                    \"key_learnings\": \"Gained practical experience.\",\n                    \"tools_used\": \"Various tools\",\n                    \"special_achievements\": \"N/A\",\n                })\n\n        # STEP 2: Build pages_data locally (NO API CALLS HERE)\n        pages_data = []\n\n        for i, day_item in enumerate(daily_work):\n            task[\"current_page\"] = i + 1\n            task[\"message\"] = f\"Processing page {i + 1} of {total}...\"\n\n            entry = all_entries[i]\n\n            pages_data.append({\n                \"date\": day_item[\"date\"],\n                \"ojt_timing\": ojt_timing,\n                \"department\": department,\n                \"designation\": designation,\n                \"my_space\": entry.get(\"my_space\", \"\"),\n                \"tasks_carried_out\": entry.get(\"tasks_carried_out\", \"\"),\n                \"key_learnings\": entry.get(\"key_learnings\", \"\"),\n                \"tools_used\": entry.get(\"tools_used\", \"\"),\n                \"special_achievements\": entry.get(\"special_achievements\", \"\"),\n            })\n\n            task[\"progress\"] = int(((i + 1) / total) * 100)\n\n        task[\"message\"] = \"Filling PDF template...\"\n        print(f\"[Task {task_id}] {task['message']}\")\n        filled_pdf = fill_pdf_with_overlay(\n            pdf_bytes, pages_data, user_details,\n            journal_start_page=journal_start_page,\n            journal_end_page=journal_end_page\n        )\n        print(f\"[Task {task_id}] PDF filled successfully\")\n\n        # Write to a temp file\n        tmp = tempfile.NamedTemporaryFile(delete=False, suffix=\".pdf\")\n        tmp.write(filled_pdf)\n        tmp.flush()\n        tmp.close()\n\n        task_files[task_id] = tmp.name\n        task[\"status\"] = \"done\"\n        task[\"progress\"] = 100\n        task[\"message\"] = \"PDF generated successfully!\"\n        print(f\"[Task {task_id}] COMPLETE - File saved to {tmp.name}\")\n\n    except Exception as e:\n        task[\"status\"] = \"error\"\n        task[\"message\"] = str(e)\n        print(f\"[Task {task_id}] FAILED: {e}\")\n        print(traceback.format_exc())",
+    "file_path": "data/chats/62183445becc4ce289903818f270e738/repos/OJT-maker/main.py",
+    "start_line": 99,
+    "end_line": 188,
+    "chunk_type": "FunctionDef",
+    "symbol_name": "generate_pdf_background",
+    "chunk_index": 3
+  },
+  {
+    "chunk_id": "21a3f9d9-d71e-4934-b25f-3f8e0830d1f9",
+    "content": "class GenerateRequest(BaseModel):\n    task_id: str\n    api_key: str\n    daily_work: list  # [{day, date, work}, ...]",
+    "file_path": "data/chats/62183445becc4ce289903818f270e738/repos/OJT-maker/main.py",
+    "start_line": 195,
+    "end_line": 198,
+    "chunk_type": "ClassDef",
+    "symbol_name": "GenerateRequest",
+    "chunk_index": 4
+  },
+  {
+    "chunk_id": "8793bdee-e2e8-4e40-8361-35697ef834e5",
+    "content": "async def upload(\n    pdf_file: UploadFile = File(...),\n    start_date: str = Form(...),\n    end_date: str = Form(...),\n    skip_dates: str = Form(\"\"),\n    ojt_timing: str = Form(...),\n    department: str = Form(...),\n    designation: str = Form(...),\n    name: str = Form(default=\"\"),\n    registration_number: str = Form(default=\"\"),\n    program_name: str = Form(default=\"\"),\n    semester: str = Form(default=\"\"),\n    location: str = Form(default=\"\"),\n    industry_partner_name: str = Form(default=\"\"),\n    phone_no: str = Form(default=\"\"),\n    email_id: str = Form(default=\"\"),\n    journal_page_type: str = Form(default=\"all\"),\n    journal_custom_range: str = Form(default=\"\"),\n    work_description: str = Form(...),\n    api_key: str = Form(...),\n):\n    # Opportunistically clean up old tasks on each upload\n    cleanup_old_tasks()\n\n    try:\n        # Parse dates\n        start_dt = parse_date(start_date)\n        end_dt = parse_date(end_date)\n        if end_dt < start_dt:\n            return JSONResponse(status_code=400, content={\"error\": \"end_date must be after start_date\"})\n\n        skip_list = [s.strip() for s in skip_dates.split(\",\") if s.strip()] if skip_dates else []\n        working_days = get_working_days(start_dt, end_dt, skip_list)\n\n        if not working_days:\n            return JSONResponse(status_code=400, content={\"error\": \"No working days found in the given range.\"})\n\n        num_days = len(working_days)\n\n        # Read PDF\n        pdf_bytes = await pdf_file.read()\n\n        # Get page count using PyPDF2\n        try:\n            reader = PyPDF2.PdfReader(io.BytesIO(pdf_bytes))\n            page_count = len(reader.pages)\n        except Exception as e:\n            return JSONResponse(status_code=400, content={\"error\": \"Invalid PDF file: \" + str(e)})\n\n        # Validate N <= PDF page count\n        if num_days > page_count:\n            return JSONResponse(\n                status_code=400,\n                content={\n                    \"error\": (\n                        f\"The selected date range produces {num_days} working days, \"\n                        f\"but the uploaded PDF has only {page_count} page(s). \"\n                        \"Please upload a PDF with more pages or shorten the date range.\"\n                    )\n                },\n            )\n\n        # Parse journal pages\n        journal_start_page = 8\n        journal_end_page = None\n        if journal_page_type == \"custom\" and journal_custom_range:\n            parts = journal_custom_range.split(\"-\")\n            try:\n                journal_start_page = int(parts[0].strip())\n                if len(parts) > 1 and parts[1].strip():\n                    journal_end_page = int(parts[1].strip())\n            except ValueError:\n                pass\n\n        # Split work into days via Gemini\n        daily_work = split_work_into_days(api_key, work_description, working_days, num_days)\n\n        task_id = str(uuid.uuid4())\n        tasks[task_id] = {\n            \"status\": \"pending\",\n            \"pdf_bytes\": pdf_bytes,\n            \"working_days\": working_days,\n            \"daily_work\": daily_work,\n            \"ojt_timing\": ojt_timing,\n            \"department\": department,\n            \"designation\": designation,\n            \"user_details\": {\n                \"name\": name,\n                \"registration_number\": registration_number,\n                \"start_date\": start_date,\n                \"program_name\": program_name,\n                \"semester\": semester,\n                \"location\": location,\n                \"industry_partner_name\": industry_partner_name,\n                \"phone_no\": phone_no,\n                \"email_id\": email_id,\n            },\n            \"journal_start_page\": journal_start_page,\n            \"journal_end_page\": journal_end_page,\n            \"progress\": 0,\n            \"total_pages\": num_days,\n            \"current_page\": 0,\n            \"message\": \"Ready to generate.\",\n        }\n        task_timestamps[task_id] = time.time()\n\n        return {\n            \"task_id\": task_id,\n            \"working_days\": working_days,\n            \"total_days\": num_days,\n            \"pdf_pages\": page_count,\n            \"daily_work\": daily_work,\n        }\n\n    except ValueError as e:\n        return JSONResponse(status_code=400, content={\"error\": str(e)})\n    except Exception:\n        return JSONResponse(status_code=500, content={\"error\": traceback.format_exc()})",
+    "file_path": "data/chats/62183445becc4ce289903818f270e738/repos/OJT-maker/main.py",
+    "start_line": 206,
+    "end_line": 323,
+    "chunk_type": "AsyncFunctionDef",
+    "symbol_name": "upload",
+    "chunk_index": 5
+  },
+  {
+    "chunk_id": "d9602867-28ab-4547-8b4c-e9d4ea53efbf",
+    "content": "async def generate(req: GenerateRequest):\n    task = tasks.get(req.task_id)\n    if not task:\n        return JSONResponse(status_code=404, content={\"error\": \"Task not found\"})\n\n    # Update daily_work with user edits\n    task[\"daily_work\"] = req.daily_work\n    task[\"status\"] = \"pending\"\n    task[\"progress\"] = 0\n    task[\"current_page\"] = 0\n    task[\"message\"] = \"Starting generation…\"\n\n    thread = threading.Thread(\n        target=generate_pdf_background,\n        args=(req.task_id, req.api_key),\n        daemon=True,\n    )\n    thread.start()\n\n    return {\"task_id\": req.task_id, \"status\": \"generating\"}",
+    "file_path": "data/chats/62183445becc4ce289903818f270e738/repos/OJT-maker/main.py",
+    "start_line": 327,
+    "end_line": 346,
+    "chunk_type": "AsyncFunctionDef",
+    "symbol_name": "generate",
+    "chunk_index": 6
+  },
+  {
+    "chunk_id": "7a01846b-b63e-4f01-b37e-50839f723e28",
+    "content": "async def get_status(task_id: str):\n    task = tasks.get(task_id)\n    if not task:\n        return JSONResponse(status_code=404, content={\"error\": \"Task not found\"})\n    return {\n        \"task_id\": task_id,\n        \"status\": task[\"status\"],\n        \"progress\": task[\"progress\"],\n        \"current_page\": task[\"current_page\"],\n        \"total_pages\": task[\"total_pages\"],\n        \"message\": task.get(\"message\", \"\"),\n    }",
+    "file_path": "data/chats/62183445becc4ce289903818f270e738/repos/OJT-maker/main.py",
+    "start_line": 350,
+    "end_line": 361,
+    "chunk_type": "AsyncFunctionDef",
+    "symbol_name": "get_status",
+    "chunk_index": 7
+  },
+  {
+    "chunk_id": "79f45d55-081d-442c-8942-2b9a3862f91c",
+    "content": "async def download(task_id: str):\n    task = tasks.get(task_id)\n    if not task:\n        return JSONResponse(status_code=404, content={\"error\": \"Task not found\"})\n    if task[\"status\"] != \"done\":\n        return JSONResponse(status_code=400, content={\"error\": \"PDF not ready yet\"})\n\n    file_path = task_files.get(task_id)\n    if not file_path or not os.path.exists(file_path):\n        return JSONResponse(status_code=404, content={\"error\": \"File not found\"})\n\n    return FileResponse(\n        path=file_path,\n        media_type=\"application/pdf\",\n        filename=f\"ojt_journal_{task_id[:8]}.pdf\",\n    )",
+    "file_path": "data/chats/62183445becc4ce289903818f270e738/repos/OJT-maker/main.py",
+    "start_line": 365,
+    "end_line": 380,
+    "chunk_type": "AsyncFunctionDef",
+    "symbol_name": "download",
+    "chunk_index": 8
+  },
+  {
+    "chunk_id": "4fd59b10-444c-422b-aca6-36491280e190",
+    "content": "async def root():\n    return FileResponse(\"static/index.html\")",
+    "file_path": "data/chats/62183445becc4ce289903818f270e738/repos/OJT-maker/main.py",
+    "start_line": 384,
+    "end_line": 385,
+    "chunk_type": "AsyncFunctionDef",
+    "symbol_name": "root",
+    "chunk_index": 9
+  },
+  {
+    "chunk_id": "b5a8eb58-6935-4f09-a565-bcfe6ccd32e1",
+    "content": "async def download_template():\n    \"\"\"Download the template PDF if it exists.\"\"\"\n    template_path = \"ojt_template.pdf\"\n    if os.path.exists(template_path):\n        return FileResponse(\n            path=template_path,\n            media_type=\"application/pdf\",\n            filename=\"ojt_template.pdf\",\n        )\n    else:\n        return JSONResponse(\n            status_code=404,\n            content={\"error\": \"Template PDF not available. Please upload ojt_template.pdf to the deployment or use your own PDF template.\"}\n        )",
+    "file_path": "data/chats/62183445becc4ce289903818f270e738/repos/OJT-maker/main.py",
+    "start_line": 389,
+    "end_line": 402,
+    "chunk_type": "AsyncFunctionDef",
+    "symbol_name": "download_template",
+    "chunk_index": 10
+  },
+  {
+    "chunk_id": "6490e12a-cb62-44a3-9d12-5109188bffe2",
+    "content": "def test_pdf_filler():\n    \"\"\"Test filling PDF with sample data for all fields.\"\"\"\n    \n    # Check if ojt_template.pdf exists\n    pdf_path = \"ojt_template.pdf\"\n    if not os.path.exists(pdf_path):\n        print(f\"❌ Error: {pdf_path} not found in current directory\")\n        return False\n    \n    print(f\"✓ Found {pdf_path}\")\n    \n    # Read the PDF template\n    with open(pdf_path, \"rb\") as f:\n        pdf_bytes = f.read()\n    print(f\"✓ Loaded PDF ({len(pdf_bytes)} bytes)\")\n    \n    # Create test data for all fields\n    test_data = [\n        {\n            \"date\": \"23-3-2026\",\n            \"ojt_timing\": \"3:30 PM – 6:30 PM\",\n            \"department\": \"IT Department\",\n            \"designation\": \"Junior Developer\",\n            \"my_space\": \"This is my reflection on the OJT experience. I learned valuable skills and gained practical knowledge in real-world scenarios.\",\n            \"tasks_carried_out\": \"Developed web applications, debugged code, participated in team meetings, wrote unit tests, reviewed code from peers, and assisted in deployment processes.\",\n            \"key_learnings\": \"Learned modern web development practices, improved problem-solving skills, understood agile methodology, enhanced collaboration abilities, and gained insights into software architecture.\",\n            \"tools_used\": \"VS Code, Git, Python, JavaScript, React, PostgreSQL, Docker\",\n            \"special_achievements\": \"Successfully completed 2 projects ahead of schedule and received positive feedback from mentors.\",\n        }\n    ]\n    \n    print(\"\\n📝 Test data fields:\")\n    for key, value in test_data[0].items():\n        preview = value[:50] + \"...\" if len(value) > 50 else value\n        print(f\"  • {key}: {preview}\")\n    \n    # Fill the PDF\n    try:\n        filled_pdf = fill_pdf_with_overlay(pdf_bytes, test_data)\n        print(f\"\\n✓ PDF filled successfully ({len(filled_pdf)} bytes)\")\n    except Exception as e:\n        print(f\"\\n❌ Error filling PDF: {e}\")\n        import traceback\n        traceback.print_exc()\n        return False\n    \n    # Save the filled PDF\n    output_path = \"abc_filled.pdf\"\n    with open(output_path, \"wb\") as f:\n        f.write(filled_pdf)\n    print(f\"✓ Saved filled PDF to {output_path}\")\n    \n    print(\"\\n✅ Test completed successfully!\")\n    print(f\"\\nNext steps:\")\n    print(f\"1. Open {output_path} to verify fields are filled correctly\")\n    print(f\"2. Check that all text is visible and properly positioned\")\n    print(f\"3. Verify text wrapping for multi-line fields (my_space, tasks_carried_out, etc.)\")\n    \n    return True",
+    "file_path": "data/chats/62183445becc4ce289903818f270e738/repos/OJT-maker/test_pdf_filler.py",
+    "start_line": 10,
+    "end_line": 68,
+    "chunk_type": "FunctionDef",
+    "symbol_name": "test_pdf_filler",
+    "chunk_index": 0
+  },
+  {
+    "chunk_id": "035e91dc-82f0-4293-b828-7f959efedaa7",
+    "content": "async def add_max_body_size(request: Request, call_next):\n    # This allows up to 100MB request bodies\n    # Vercel's limit is handled via the 3GB memory setting\n    return await call_next(request)",
+    "file_path": "data/chats/62183445becc4ce289903818f270e738/repos/OJT-maker/api/main.py",
+    "start_line": 42,
+    "end_line": 45,
+    "chunk_type": "AsyncFunctionDef",
+    "symbol_name": "add_max_body_size",
+    "chunk_index": 0
+  },
+  {
+    "chunk_id": "3ef5e787-9183-491f-8b1e-b3d2bab0f32c",
+    "content": "async def http_exception_handler(request, exc):\n    if exc.status_code == 413:\n        return JSONResponse(\n            status_code=413,\n            content={\"error\": \"File too large. Maximum upload size is 50MB. Please use a smaller PDF or compress it.\"}\n        )\n    return JSONResponse(status_code=exc.status_code, content={\"error\": str(exc.detail)})",
+    "file_path": "data/chats/62183445becc4ce289903818f270e738/repos/OJT-maker/api/main.py",
+    "start_line": 49,
+    "end_line": 55,
+    "chunk_type": "AsyncFunctionDef",
+    "symbol_name": "http_exception_handler",
+    "chunk_index": 1
+  },
+  {
+    "chunk_id": "f9fd506e-6c9a-4e2a-88ad-f5a1ee1ba295",
+    "content": "def cleanup_old_tasks():\n    \"\"\"Remove tasks and temp files older than TASK_TTL_SECONDS.\"\"\"\n    now = time.time()\n    stale = [tid for tid, ts in list(task_timestamps.items()) if now - ts > TASK_TTL_SECONDS]\n    for tid in stale:\n        path = task_files.pop(tid, None)\n        if path and os.path.exists(path):\n            try:\n                os.unlink(path)\n            except OSError:\n                pass\n        tasks.pop(tid, None)\n        task_timestamps.pop(tid, None)",
+    "file_path": "data/chats/62183445becc4ce289903818f270e738/repos/OJT-maker/api/main.py",
+    "start_line": 65,
+    "end_line": 77,
+    "chunk_type": "FunctionDef",
+    "symbol_name": "cleanup_old_tasks",
+    "chunk_index": 2
+  },
+  {
+    "chunk_id": "32e04df5-59b6-466c-9618-7718981c6487",
+    "content": "def get_working_days(start: datetime, end: datetime, skip: list) -> list:\n    \"\"\"Return list of date strings (YYYY-MM-DD) for Mon-Fri between start and end, excluding skip.\"\"\"\n    skip_set = set()\n    for s in skip:\n        s = s.strip()\n        if s:\n            try:\n                skip_set.add(parse_date(s).date())\n            except Exception:\n                pass\n\n    days = []\n    current = start.date()\n    end_date = end.date()\n    while current <= end_date:\n        if current.weekday() < 5 and current not in skip_set:\n            days.append(current.strftime(\"%Y-%m-%d\"))\n        current += timedelta(days=1)\n    return days",
+    "file_path": "data/chats/62183445becc4ce289903818f270e738/repos/OJT-maker/api/main.py",
+    "start_line": 84,
+    "end_line": 102,
+    "chunk_type": "FunctionDef",
+    "symbol_name": "get_working_days",
+    "chunk_index": 3
+  },
+  {
+    "chunk_id": "1ca1a1e8-1259-40df-bd5a-42d3bba8f6e8",
+    "content": "def generate_pdf_background(task_id: str, api_key: str):\n    \"\"\"Background thread: generate all journal entries and fill PDF.\"\"\"\n    task = tasks.get(task_id)\n    if not task:\n        return\n\n    try:\n        task[\"status\"] = \"generating\"\n        task[\"progress\"] = 0\n        daily_work = task[\"daily_work\"]\n        pdf_bytes = task[\"pdf_bytes\"]\n        ojt_timing = task[\"ojt_timing\"]\n        department = task[\"department\"]\n        designation = task[\"designation\"]\n        total = len(daily_work)\n\n        # STEP 1: Generate ALL entries in ONE API call\n        task[\"message\"] = \"Generating all journal entries...\"\n        print(f\"[Task {task_id}] Generating all entries in one call...\")\n\n        try:\n            all_entries = generate_all_journals(api_key, daily_work)\n            print(f\"[Task {task_id}] All entries generated successfully\")\n        except Exception as exc:\n            print(f\"[Task {task_id}] ERROR (batch): {exc}\")\n            print(traceback.format_exc())\n\n            # fallback: create basic entries\n            all_entries = []\n            for day_item in daily_work:\n                all_entries.append({\n                    \"my_space\": \"Worked on assigned tasks for the day.\",\n                    \"tasks_carried_out\": day_item[\"work\"],\n                    \"key_learnings\": \"Gained practical experience.\",\n                    \"tools_used\": \"Various tools\",\n                    \"special_achievements\": \"N/A\",\n                })\n\n        # STEP 2: Build pages_data locally (NO API CALLS HERE)\n        pages_data = []\n\n        for i, day_item in enumerate(daily_work):\n            task[\"current_page\"] = i + 1\n            task[\"message\"] = f\"Processing page {i + 1} of {total}...\"\n\n            entry = all_entries[i]\n\n            pages_data.append({\n                \"date\": day_item[\"date\"],\n                \"ojt_timing\": ojt_timing,\n                \"department\": department,\n                \"designation\": designation,\n                \"my_space\": entry.get(\"my_space\", \"\"),\n                \"tasks_carried_out\": entry.get(\"tasks_carried_out\", \"\"),\n                \"key_learnings\": entry.get(\"key_learnings\", \"\"),\n                \"tools_used\": entry.get(\"tools_used\", \"\"),\n                \"special_achievements\": entry.get(\"special_achievements\", \"\"),\n            })\n\n            task[\"progress\"] = int(((i + 1) / total) * 100)\n\n        task[\"message\"] = \"Filling PDF template...\"\n        print(f\"[Task {task_id}] {task['message']}\")\n        filled_pdf = fill_pdf_with_overlay(pdf_bytes, pages_data)\n        print(f\"[Task {task_id}] PDF filled successfully\")\n\n        # Write to a temp file\n        tmp = tempfile.NamedTemporaryFile(delete=False, suffix=\".pdf\")\n        tmp.write(filled_pdf)\n        tmp.flush()\n        tmp.close()\n\n        task_files[task_id] = tmp.name\n        task[\"status\"] = \"done\"\n        task[\"progress\"] = 100\n        task[\"message\"] = \"PDF generated successfully!\"\n        print(f\"[Task {task_id}] COMPLETE - File saved to {tmp.name}\")\n\n    except Exception as e:\n        task[\"status\"] = \"error\"\n        task[\"message\"] = str(e)\n        print(f\"[Task {task_id}] FAILED: {e}\")\n        print(traceback.format_exc())",
+    "file_path": "data/chats/62183445becc4ce289903818f270e738/repos/OJT-maker/api/main.py",
+    "start_line": 109,
+    "end_line": 191,
+    "chunk_type": "FunctionDef",
+    "symbol_name": "generate_pdf_background",
+    "chunk_index": 4
+  },
+  {
+    "chunk_id": "e41847d8-4fb4-4668-9058-3877fe08774e",
+    "content": "class GenerateRequest(BaseModel):\n    task_id: str\n    api_key: str\n    daily_work: list  # [{day, date, work}, ...]",
+    "file_path": "data/chats/62183445becc4ce289903818f270e738/repos/OJT-maker/api/main.py",
+    "start_line": 198,
+    "end_line": 201,
+    "chunk_type": "ClassDef",
+    "symbol_name": "GenerateRequest",
+    "chunk_index": 5
+  },
+  {
+    "chunk_id": "2a30841e-32b1-40cb-b022-bfd9db432ac5",
+    "content": "async def upload(\n    pdf_file: UploadFile = File(...),\n    start_date: str = Form(...),\n    end_date: str = Form(...),\n    skip_dates: str = Form(\"\"),\n    ojt_timing: str = Form(...),\n    department: str = Form(...),\n    designation: str = Form(...),\n    work_description: str = Form(...),\n    api_key: str = Form(...),\n):\n    # Opportunistically clean up old tasks on each upload\n    cleanup_old_tasks()\n\n    try:\n        # Parse dates\n        start_dt = parse_date(start_date)\n        end_dt = parse_date(end_date)\n        if end_dt < start_dt:\n            return JSONResponse(status_code=400, content={\"error\": \"end_date must be after start_date\"})\n\n        skip_list = [s.strip() for s in skip_dates.split(\",\") if s.strip()] if skip_dates else []\n        working_days = get_working_days(start_dt, end_dt, skip_list)\n\n        if not working_days:\n            return JSONResponse(status_code=400, content={\"error\": \"No working days found in the given range.\"})\n\n        num_days = len(working_days)\n\n        # Read PDF\n        pdf_bytes = await pdf_file.read()\n\n        # Get page count using PyPDF2\n        try:\n            reader = PyPDF2.PdfReader(io.BytesIO(pdf_bytes))\n            page_count = len(reader.pages)\n        except Exception as e:\n            return JSONResponse(status_code=400, content={\"error\": \"Invalid PDF file: \" + str(e)})\n\n        # Validate N <= PDF page count\n        if num_days > page_count:\n            return JSONResponse(\n                status_code=400,\n                content={\n                    \"error\": (\n                        f\"The selected date range produces {num_days} working days, \"\n                        f\"but the uploaded PDF has only {page_count} page(s). \"\n                        \"Please upload a PDF with more pages or shorten the date range.\"\n                    )\n                },\n            )\n\n        # Split work into days via Gemini\n        daily_work = split_work_into_days(api_key, work_description, working_days, num_days)\n\n        task_id = str(uuid.uuid4())\n        tasks[task_id] = {\n            \"status\": \"pending\",\n            \"pdf_bytes\": pdf_bytes,\n            \"working_days\": working_days,\n            \"daily_work\": daily_work,\n            \"ojt_timing\": ojt_timing,\n            \"department\": department,\n            \"designation\": designation,\n            \"progress\": 0,\n            \"total_pages\": num_days,\n            \"current_page\": 0,\n            \"message\": \"Ready to generate.\",\n        }\n        task_timestamps[task_id] = time.time()\n\n        return {\n            \"task_id\": task_id,\n            \"working_days\": working_days,\n            \"total_days\": num_days,\n            \"pdf_pages\": page_count,\n            \"daily_work\": daily_work,\n        }\n\n    except ValueError as e:\n        return JSONResponse(status_code=400, content={\"error\": str(e)})\n    except Exception:\n        return JSONResponse(status_code=500, content={\"error\": traceback.format_exc()})",
+    "file_path": "data/chats/62183445becc4ce289903818f270e738/repos/OJT-maker/api/main.py",
+    "start_line": 209,
+    "end_line": 291,
+    "chunk_type": "AsyncFunctionDef",
+    "symbol_name": "upload",
+    "chunk_index": 6
+  },
+  {
+    "chunk_id": "cc1b5f4c-c1a4-42d6-a698-dd23c2481575",
+    "content": "async def generate(req: GenerateRequest):\n    task = tasks.get(req.task_id)\n    if not task:\n        return JSONResponse(status_code=404, content={\"error\": \"Task not found\"})\n\n    # Update daily_work with user edits\n    task[\"daily_work\"] = req.daily_work\n    task[\"status\"] = \"pending\"\n    task[\"progress\"] = 0\n    task[\"current_page\"] = 0\n    task[\"message\"] = \"Starting generation…\"\n\n    thread = threading.Thread(\n        target=generate_pdf_background,\n        args=(req.task_id, req.api_key),\n        daemon=True,\n    )\n    thread.start()\n\n    return {\"task_id\": req.task_id, \"status\": \"generating\"}",
+    "file_path": "data/chats/62183445becc4ce289903818f270e738/repos/OJT-maker/api/main.py",
+    "start_line": 295,
+    "end_line": 314,
+    "chunk_type": "AsyncFunctionDef",
+    "symbol_name": "generate",
+    "chunk_index": 7
+  },
+  {
+    "chunk_id": "70bc4c53-ad55-4c8b-ba3e-0107c96fa171",
+    "content": "async def get_status(task_id: str):\n    task = tasks.get(task_id)\n    if not task:\n        return JSONResponse(status_code=404, content={\"error\": \"Task not found\"})\n    return {\n        \"task_id\": task_id,\n        \"status\": task[\"status\"],\n        \"progress\": task[\"progress\"],\n        \"current_page\": task[\"current_page\"],\n        \"total_pages\": task[\"total_pages\"],\n        \"message\": task.get(\"message\", \"\"),\n    }",
+    "file_path": "data/chats/62183445becc4ce289903818f270e738/repos/OJT-maker/api/main.py",
+    "start_line": 318,
+    "end_line": 329,
+    "chunk_type": "AsyncFunctionDef",
+    "symbol_name": "get_status",
+    "chunk_index": 8
+  },
+  {
+    "chunk_id": "13268314-e915-4847-9cc4-32d267e79c33",
+    "content": "async def download(task_id: str):\n    task = tasks.get(task_id)\n    if not task:\n        return JSONResponse(status_code=404, content={\"error\": \"Task not found\"})\n    if task[\"status\"] != \"done\":\n        return JSONResponse(status_code=400, content={\"error\": \"PDF not ready yet\"})\n\n    file_path = task_files.get(task_id)\n    if not file_path or not os.path.exists(file_path):\n        return JSONResponse(status_code=404, content={\"error\": \"File not found\"})\n\n    return FileResponse(\n        path=file_path,\n        media_type=\"application/pdf\",\n        filename=f\"ojt_journal_{task_id[:8]}.pdf\",\n    )",
+    "file_path": "data/chats/62183445becc4ce289903818f270e738/repos/OJT-maker/api/main.py",
+    "start_line": 333,
+    "end_line": 348,
+    "chunk_type": "AsyncFunctionDef",
+    "symbol_name": "download",
+    "chunk_index": 9
+  },
+  {
+    "chunk_id": "558113f7-1af9-4ca1-974b-09602c2aa868",
+    "content": "async def root():\n    return FileResponse(\"static/index.html\")",
+    "file_path": "data/chats/62183445becc4ce289903818f270e738/repos/OJT-maker/api/main.py",
+    "start_line": 352,
+    "end_line": 353,
+    "chunk_type": "AsyncFunctionDef",
+    "symbol_name": "root",
+    "chunk_index": 10
+  },
+  {
+    "chunk_id": "05e06494-4bf2-44d0-a344-aed5105c89ef",
+    "content": "async def download_template():\n    \"\"\"Download the template PDF if it exists.\"\"\"\n    template_path = \"ojt_template.pdf\"\n    if os.path.exists(template_path):\n        return FileResponse(\n            path=template_path,\n            media_type=\"application/pdf\",\n            filename=\"ojt_template.pdf\",\n        )\n    else:\n        return JSONResponse(\n            status_code=404,\n            content={\"error\": \"Template PDF not available. Please upload ojt_template.pdf to the deployment or use your own PDF template.\"}\n        )",
+    "file_path": "data/chats/62183445becc4ce289903818f270e738/repos/OJT-maker/api/main.py",
+    "start_line": 357,
+    "end_line": 370,
+    "chunk_type": "AsyncFunctionDef",
+    "symbol_name": "download_template",
+    "chunk_index": 11
+  }
+]

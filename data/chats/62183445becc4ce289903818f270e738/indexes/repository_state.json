@@ -1,0 +1,305 @@
+{
+  "repository_graph": {
+    "graph": {
+      "data/chats/62183445becc4ce289903818f270e738/repos/OJT-maker/pdf_filler.py": [
+        "io",
+        "json",
+        "re",
+        "reportlab.pdfgen",
+        "reportlab.lib.pagesizes",
+        "reportlab.lib.utils",
+        "PyPDF2",
+        "gemini_helper",
+        "re"
+      ],
+      "data/chats/62183445becc4ce289903818f270e738/repos/OJT-maker/gemini_helper.py": [
+        "google.generativeai",
+        "json",
+        "re",
+        "time",
+        "datetime"
+      ],
+      "data/chats/62183445becc4ce289903818f270e738/repos/OJT-maker/test_fields.py": [
+        "os",
+        "io",
+        "reportlab.pdfgen",
+        "reportlab.lib.pagesizes",
+        "pdf_filler"
+      ],
+      "data/chats/62183445becc4ce289903818f270e738/repos/OJT-maker/main.py": [
+        "io",
+        "os",
+        "sys",
+        "uuid",
+        "threading",
+        "tempfile",
+        "traceback",
+        "time",
+        "datetime",
+        "fastapi",
+        "fastapi.staticfiles",
+        "fastapi.responses",
+        "fastapi.middleware.cors",
+        "pydantic",
+        "dateutil.parser",
+        "PyPDF2",
+        "starlette.exceptions",
+        "gemini_helper",
+        "pdf_filler"
+      ],
+      "data/chats/62183445becc4ce289903818f270e738/repos/OJT-maker/test_pdf_filler.py": [
+        "os",
+        "pdf_filler",
+        "traceback"
+      ],
+      "data/chats/62183445becc4ce289903818f270e738/repos/OJT-maker/api/main.py": [
+        "io",
+        "os",
+        "sys",
+        "uuid",
+        "threading",
+        "tempfile",
+        "traceback",
+        "time",
+        "datetime",
+        "fastapi",
+        "fastapi.staticfiles",
+        "fastapi.responses",
+        "fastapi.middleware.cors",
+        "starlette.middleware",
+        "starlette.requests",
+        "pydantic",
+        "dateutil.parser",
+        "PyPDF2",
+        "starlette.exceptions",
+        "gemini_helper",
+        "pdf_filler"
+      ]
+    },
+    "importance_scores": {
+      "data/chats/62183445becc4ce289903818f270e738/repos/OJT-maker/api/main.py": 6,
+      "data/chats/62183445becc4ce289903818f270e738/repos/OJT-maker/main.py": 5,
+      "data/chats/62183445becc4ce289903818f270e738/repos/OJT-maker/pdf_filler.py": 4,
+      "data/chats/62183445becc4ce289903818f270e738/repos/OJT-maker/gemini_helper.py": 3,
+      "data/chats/62183445becc4ce289903818f270e738/repos/OJT-maker/test_fields.py": 2,
+      "data/chats/62183445becc4ce289903818f270e738/repos/OJT-maker/test_pdf_filler.py": 1
+    }
+  },
+  "symbols": {
+    "clean_text_field": {
+      "chunk_id": "7c9aa7e7-beff-4c81-8c90-4263297e2bea",
+      "file_path": "data/chats/62183445becc4ce289903818f270e738/repos/OJT-maker/pdf_filler.py",
+      "chunk_type": "FunctionDef",
+      "start_line": 48,
+      "end_line": 78
+    },
+    "parse_ojt_timing": {
+      "chunk_id": "aaf7d18c-8adc-4819-bc6b-3623d47299b2",
+      "file_path": "data/chats/62183445becc4ce289903818f270e738/repos/OJT-maker/pdf_filler.py",
+      "chunk_type": "FunctionDef",
+      "start_line": 81,
+      "end_line": 104
+    },
+    "detect_pdf_fields": {
+      "chunk_id": "927f9f79-6538-4713-abe4-8c6a6abdcb22",
+      "file_path": "data/chats/62183445becc4ce289903818f270e738/repos/OJT-maker/pdf_filler.py",
+      "chunk_type": "FunctionDef",
+      "start_line": 107,
+      "end_line": 121
+    },
+    "detect_field_positions_from_text": {
+      "chunk_id": "392150d2-5dd6-436a-805e-fe20cc90dba8",
+      "file_path": "data/chats/62183445becc4ce289903818f270e738/repos/OJT-maker/pdf_filler.py",
+      "chunk_type": "FunctionDef",
+      "start_line": 124,
+      "end_line": 129
+    },
+    "_wrap_text": {
+      "chunk_id": "f1069de5-f6fa-4b03-8600-545e351258a2",
+      "file_path": "data/chats/62183445becc4ce289903818f270e738/repos/OJT-maker/pdf_filler.py",
+      "chunk_type": "FunctionDef",
+      "start_line": 132,
+      "end_line": 141
+    },
+    "_build_overlay_page": {
+      "chunk_id": "7b58cf88-246d-4d4f-904b-47eece43b934",
+      "file_path": "data/chats/62183445becc4ce289903818f270e738/repos/OJT-maker/pdf_filler.py",
+      "chunk_type": "FunctionDef",
+      "start_line": 144,
+      "end_line": 212
+    },
+    "fill_pdf_with_overlay": {
+      "chunk_id": "eeb6b00f-4941-47d7-ab37-801faa365a21",
+      "file_path": "data/chats/62183445becc4ce289903818f270e738/repos/OJT-maker/pdf_filler.py",
+      "chunk_type": "FunctionDef",
+      "start_line": 215,
+      "end_line": 322
+    },
+    "get_ordinal_suffix": {
+      "chunk_id": "c3482e2e-7d58-45f3-b79c-8bec1e455c7a",
+      "file_path": "data/chats/62183445becc4ce289903818f270e738/repos/OJT-maker/gemini_helper.py",
+      "chunk_type": "FunctionDef",
+      "start_line": 11,
+      "end_line": 14
+    },
+    "format_date": {
+      "chunk_id": "e4395bfd-ed39-454e-8d3d-bfcfa095ab1b",
+      "file_path": "data/chats/62183445becc4ce289903818f270e738/repos/OJT-maker/gemini_helper.py",
+      "chunk_type": "FunctionDef",
+      "start_line": 16,
+      "end_line": 28
+    },
+    "call_gemini": {
+      "chunk_id": "84f3984f-9ba2-4e72-a88c-6824a56d38ca",
+      "file_path": "data/chats/62183445becc4ce289903818f270e738/repos/OJT-maker/gemini_helper.py",
+      "chunk_type": "FunctionDef",
+      "start_line": 34,
+      "end_line": 54
+    },
+    "split_work_into_days": {
+      "chunk_id": "73ea34ec-0bd2-4861-aa30-dd42eb83b918",
+      "file_path": "data/chats/62183445becc4ce289903818f270e738/repos/OJT-maker/gemini_helper.py",
+      "chunk_type": "FunctionDef",
+      "start_line": 60,
+      "end_line": 103
+    },
+    "generate_all_journals": {
+      "chunk_id": "17f40e91-5d15-4794-80b0-923c72eb0b68",
+      "file_path": "data/chats/62183445becc4ce289903818f270e738/repos/OJT-maker/gemini_helper.py",
+      "chunk_type": "FunctionDef",
+      "start_line": 109,
+      "end_line": 154
+    },
+    "generate_full_entries": {
+      "chunk_id": "06f298ea-e100-4a00-a90a-c6c5e33834fd",
+      "file_path": "data/chats/62183445becc4ce289903818f270e738/repos/OJT-maker/gemini_helper.py",
+      "chunk_type": "FunctionDef",
+      "start_line": 160,
+      "end_line": 184
+    },
+    "generate_journal_entry": {
+      "chunk_id": "351479ed-6298-4435-9316-b8a12af9c1b8",
+      "file_path": "data/chats/62183445becc4ce289903818f270e738/repos/OJT-maker/gemini_helper.py",
+      "chunk_type": "FunctionDef",
+      "start_line": 190,
+      "end_line": 220
+    },
+    "create_dummy_template": {
+      "chunk_id": "99d2cd98-af44-4031-81f8-0044507bdd6b",
+      "file_path": "data/chats/62183445becc4ce289903818f270e738/repos/OJT-maker/test_fields.py",
+      "chunk_type": "FunctionDef",
+      "start_line": 7,
+      "end_line": 26
+    },
+    "main": {
+      "chunk_id": "ff4d95d7-f3f1-4553-b818-1344509314e5",
+      "file_path": "data/chats/62183445becc4ce289903818f270e738/repos/OJT-maker/test_fields.py",
+      "chunk_type": "FunctionDef",
+      "start_line": 28,
+      "end_line": 85
+    },
+    "http_exception_handler": {
+      "chunk_id": "3ef5e787-9183-491f-8b1e-b3d2bab0f32c",
+      "file_path": "data/chats/62183445becc4ce289903818f270e738/repos/OJT-maker/api/main.py",
+      "chunk_type": "AsyncFunctionDef",
+      "start_line": 49,
+      "end_line": 55
+    },
+    "cleanup_old_tasks": {
+      "chunk_id": "f9fd506e-6c9a-4e2a-88ad-f5a1ee1ba295",
+      "file_path": "data/chats/62183445becc4ce289903818f270e738/repos/OJT-maker/api/main.py",
+      "chunk_type": "FunctionDef",
+      "start_line": 65,
+      "end_line": 77
+    },
+    "get_working_days": {
+      "chunk_id": "32e04df5-59b6-466c-9618-7718981c6487",
+      "file_path": "data/chats/62183445becc4ce289903818f270e738/repos/OJT-maker/api/main.py",
+      "chunk_type": "FunctionDef",
+      "start_line": 84,
+      "end_line": 102
+    },
+    "generate_pdf_background": {
+      "chunk_id": "1ca1a1e8-1259-40df-bd5a-42d3bba8f6e8",
+      "file_path": "data/chats/62183445becc4ce289903818f270e738/repos/OJT-maker/api/main.py",
+      "chunk_type": "FunctionDef",
+      "start_line": 109,
+      "end_line": 191
+    },
+    "GenerateRequest": {
+      "chunk_id": "e41847d8-4fb4-4668-9058-3877fe08774e",
+      "file_path": "data/chats/62183445becc4ce289903818f270e738/repos/OJT-maker/api/main.py",
+      "chunk_type": "ClassDef",
+      "start_line": 198,
+      "end_line": 201
+    },
+    "upload": {
+      "chunk_id": "2a30841e-32b1-40cb-b022-bfd9db432ac5",
+      "file_path": "data/chats/62183445becc4ce289903818f270e738/repos/OJT-maker/api/main.py",
+      "chunk_type": "AsyncFunctionDef",
+      "start_line": 209,
+      "end_line": 291
+    },
+    "generate": {
+      "chunk_id": "cc1b5f4c-c1a4-42d6-a698-dd23c2481575",
+      "file_path": "data/chats/62183445becc4ce289903818f270e738/repos/OJT-maker/api/main.py",
+      "chunk_type": "AsyncFunctionDef",
+      "start_line": 295,
+      "end_line": 314
+    },
+    "get_status": {
+      "chunk_id": "70bc4c53-ad55-4c8b-ba3e-0107c96fa171",
+      "file_path": "data/chats/62183445becc4ce289903818f270e738/repos/OJT-maker/api/main.py",
+      "chunk_type": "AsyncFunctionDef",
+      "start_line": 318,
+      "end_line": 329
+    },
+    "download": {
+      "chunk_id": "13268314-e915-4847-9cc4-32d267e79c33",
+      "file_path": "data/chats/62183445becc4ce289903818f270e738/repos/OJT-maker/api/main.py",
+      "chunk_type": "AsyncFunctionDef",
+      "start_line": 333,
+      "end_line": 348
+    },
+    "root": {
+      "chunk_id": "558113f7-1af9-4ca1-974b-09602c2aa868",
+      "file_path": "data/chats/62183445becc4ce289903818f270e738/repos/OJT-maker/api/main.py",
+      "chunk_type": "AsyncFunctionDef",
+      "start_line": 352,
+      "end_line": 353
+    },
+    "download_template": {
+      "chunk_id": "05e06494-4bf2-44d0-a344-aed5105c89ef",
+      "file_path": "data/chats/62183445becc4ce289903818f270e738/repos/OJT-maker/api/main.py",
+      "chunk_type": "AsyncFunctionDef",
+      "start_line": 357,
+      "end_line": 370
+    },
+    "test_pdf_filler": {
+      "chunk_id": "6490e12a-cb62-44a3-9d12-5109188bffe2",
+      "file_path": "data/chats/62183445becc4ce289903818f270e738/repos/OJT-maker/test_pdf_filler.py",
+      "chunk_type": "FunctionDef",
+      "start_line": 10,
+      "end_line": 68
+    },
+    "add_max_body_size": {
+      "chunk_id": "035e91dc-82f0-4293-b828-7f959efedaa7",
+      "file_path": "data/chats/62183445becc4ce289903818f270e738/repos/OJT-maker/api/main.py",
+      "chunk_type": "AsyncFunctionDef",
+      "start_line": 42,
+      "end_line": 45
+    }
+  },
+  "summaries": {
+    "data/chats/62183445becc4ce289903818f270e738/repos/OJT-maker/pdf_filler.py": "## Overview\n### File Path\n`data/chats/62183445becc4ce289903818f270e738/repos/OJT-maker/pdf_filler.py`\n\n### Subsystem Responsibilities\n- Detects and parses PDF fields\n- Fills in PDF fields with user-provided data\n- Handles various field types (e.g., dates, timings, text)\n\n### Architectural Role\n- Part of the OJT-maker repository, responsible for generating PDF reports\n- Utilizes external libraries (e.g., reportlab, PyPDF2) for PDF manipulation\n\n## Issue\n### Missing Functionality\n- The `detect_pdf_fields` function does not handle all possible PDF field types\n- The `parse_ojt_timing` function only handles specific timing formats\n\n## Explanation\n### Important APIs\n- `reportlab.pdfgen.canvas.Canvas`: used for creating PDFs\n- `PyPDF2.PdfReader`: used for parsing PDFs\n- `json.loads`: used for parsing JSON arrays\n\n### Important Classes\n- `PyPDF2.PdfReader`: used for parsing PDFs\n- `reportlab.pdfgen.canvas.Canvas`: used for creating PDFs\n\n### Important Functions\n- `detect_pdf_fields`: detects and parses PDF fields\n- `parse_ojt_timing`: parses OJT timing strings\n- `clean_text_field`: cleans text fields by converting JSON arrays to newline-separated text\n\n### Routing Behavior\n- The `detect_pdf_fields` function takes a PDF bytes object as input and returns a dictionary mapping field names to page indices\n\n### Dependency Behavior\n- The `detect_pdf_fields` function depends on the `PyPDF2` library for parsing PDFs\n- The `parse_ojt_timing` function depends on the `re` module for regular expression matching\n\n### Middleware Behavior\n- The `detect_pdf_fields` function uses a try-except block to handle exceptions during PDF parsing\n\n### Lifecycle Management\n- The `detect_pdf_fields` function is responsible for detecting and parsing PDF fields, which is a critical step in the PDF report generation process\n\n### Authentication Behavior\n- None\n\n### Serialization Behavior\n- The `clean_text_field` function serializes JSON arrays to newline-separated text\n\n### Validation Behavior\n- The `parse_ojt_timing` function validates OJT timing strings against specific formats\n\n### Request Handling\n- The `detect_pdf_fields` function handles PDF bytes objects as input\n\n### Response Handling\n- The `detect_pdf_fields` function returns a dictionary mapping field names to page indices\n\n### Data Flow Concepts\n- The `detect_pdf_fields` function reads PDF bytes objects and writes field mappings to a dictionary\n\n### Internal Framework Concepts\n- The `detect_pdf_fields` function uses a try-except block to handle exceptions during PDF parsing\n\n## Solution\n### Improving Functionality\n- Enhance the `detect_pdf_fields` function to handle all possible PDF field types\n- Improve the `parse_ojt_timing` function to handle various timing formats\n\n### Optimizing Performance\n- Use caching mechanisms to improve performance when detecting and parsing PDF fields\n- Optimize the `clean_text_field` function to handle large text fields more efficiently\n\n### Improving Code Quality\n- Refactor the code to improve readability and maintainability\n- Use more descriptive variable names and function comments to improve code clarity",
+    "data/chats/62183445becc4ce289903818f270e738/repos/OJT-maker/gemini_helper.py": "## Overview\n### File Path\ndata/chats/62183445becc4ce289903818f270e738/repos/OJT-maker/gemini_helper.py\n\n### Subsystem Responsibilities\n- Provides functionality for generating OJT (On-the-Job Training) journal entries using Gemini AI.\n- Handles date formatting and splitting work into days.\n- Makes API calls to Gemini AI for generating content.\n\n### Architectural Role\n- Acts as a data processing and transformation layer, taking in user input and producing formatted journal entries.\n\n## Issue\n- The code is not modular and has a high degree of coupling between functions.\n- The `generate_full_entries` function is complex and performs multiple steps, making it difficult to maintain and test.\n- The code does not follow standard Python naming conventions and uses inconsistent indentation.\n\n## Explanation\n### Important APIs\n- `google.generativeai` (Gemini AI API)\n- `json` (for parsing and generating JSON data)\n\n### Important Classes\n- `genai.GenerativeModel` (Gemini AI model instance)\n\n### Important Functions\n- `get_ordinal_suffix` (formats date suffix)\n- `format_date` (formats date string)\n- `call_gemini` (makes API call to Gemini AI)\n- `split_work_into_days` (splits work into days)\n- `generate_all_journals` (generates all journal entries)\n- `generate_full_entries` (final pipeline function)\n\n### Routing Behavior\n- The code uses a linear routing approach, with each function calling the next one in sequence.\n\n### Dependency Behavior\n- The code has a high degree of coupling between functions, with many dependencies on external libraries and APIs.\n\n### Middleware Behavior\n- The code uses middleware-like behavior with the `call_gemini` function, which handles retries and error handling.\n\n### Lifecycle Management\n- The code does not have explicit lifecycle management, but the `generate_full_entries` function controls the overall flow.\n\n### Authentication Behavior\n- The code uses API keys for authentication with Gemini AI.\n\n### Serialization Behavior\n- The code uses JSON serialization for data exchange between functions.\n\n### Validation Behavior\n- The code does not perform explicit validation on user input or generated data.\n\n### Request Handling\n- The code handles API requests to Gemini AI using the `call_gemini` function.\n\n### Response Handling\n- The code handles responses from Gemini AI and parses JSON data using the `json` library.\n\n### Data Flow Concepts\n- The code uses a data pipeline approach, with data flowing from one function to the next.\n\n### Internal Framework Concepts\n- The code uses a simple framework-like structure, with functions calling each other in sequence.\n\n## Solution\n### Refactoring Suggestions\n- Break down the `generate_full_entries` function into smaller, more manageable functions.\n- Use a more modular approach, with each function responsible for a specific task.\n- Follow standard Python naming conventions and use consistent indentation.\n- Add explicit validation and error handling mechanisms.\n- Consider using a more robust framework or library for handling API requests and data serialization.",
+    "data/chats/62183445becc4ce289903818f270e738/repos/OJT-maker/test_fields.py": "## Overview\nRepository: `data/chats/62183445becc4ce289903818f270e738/repos/OJT-maker`\nFile: `test_fields.py`\nLanguage: Python\nFramework: ReportLab, pdf_filler\n\n## Issue\n* Generation of test PDFs for OJT (On-the-Job Training) maker application\n* Handling of template PDFs and dummy data for testing purposes\n\n## Explanation\n### Subsystem Responsibilities\n* `create_dummy_template`: Generates a basic blank PDF with gridlines for testing purposes\n* `main`: Handles template PDF loading, dummy data generation, and PDF filling with overlay\n\n### Architectural Role\n* ReportLab: PDF generation and manipulation\n* pdf_filler: PDF filling with overlay functionality\n\n### Important APIs\n* `create_dummy_template`: `canvas.Canvas`, `io.BytesIO`\n* `main`: `os.path.exists`, `open`, `fill_pdf_with_overlay`\n\n### Important Classes\n* `canvas.Canvas`: ReportLab's PDF canvas class\n* `BytesIO`: In-memory binary stream for PDF data\n\n### Important Functions\n* `create_dummy_template`: Generates dummy PDF template\n* `fill_pdf_with_overlay`: Fills PDF with overlay data using pdf_filler\n\n### Routing Behavior\n* None\n\n### Dependency Behavior\n* ReportLab: `canvas`, `pagesizes`\n* pdf_filler: `fill_pdf_with_overlay`\n\n### Middleware Behavior\n* None\n\n### Lifecycle Management\n* None\n\n### Authentication Behavior\n* None\n\n### Serialization Behavior\n* PDF data serialization using ReportLab and pdf_filler\n\n### Validation Behavior\n* None\n\n### Request Handling\n* None\n\n### Response Handling\n* PDF output generation using ReportLab and pdf_filler\n\n### Data Flow Concepts\n* PDF data flow from template to filled PDF using ReportLab and pdf_filler\n\n### Internal Framework Concepts\n* ReportLab's PDF generation and manipulation\n* pdf_filler's PDF filling with overlay functionality",
+    "data/chats/62183445becc4ce289903818f270e738/repos/OJT-maker/main.py": "## Overview\n### System Description\nThe provided code is for a FastAPI application named \"OJT Journal Maker\" that generates journal entries for users based on their work assignments. It utilizes background tasks to process and fill PDF templates with user data.\n\n### Subsystem Responsibilities\n- **API Gateway**: Handles incoming requests and routes them to the appropriate handlers.\n- **Background Task Manager**: Manages and executes background tasks for generating journal entries and filling PDF templates.\n- **Data Storage**: Stores task metadata and temporary files for task execution.\n\n### Architectural Role\nThe application follows a microservices architecture with a focus on scalability and reliability. It utilizes a task queue to manage background tasks, ensuring that tasks are executed efficiently and asynchronously.\n\n## Issue\n### Code Complexity\nThe code has a moderate to high complexity due to the presence of multiple background tasks, API calls, and data processing logic.\n\n### Technical Debt\nThe code may have technical debt due to the use of global variables, hardcoded values, and lack of clear separation of concerns.\n\n## Explanation\n### Important APIs\n- **`generate_all_journals`**: API call to generate all journal entries for a given user.\n- **`fill_pdf_with_overlay`**: API call to fill a PDF template with user data.\n\n### Important Classes\n- **`FastAPI`**: The main application instance.\n- **`BackgroundTasks`**: A utility for managing background tasks.\n\n### Important Functions\n- **`cleanup_old_tasks`**: Removes tasks and temporary files older than a specified TTL.\n- **`get_working_days`**: Returns a list of working days between a start and end date, excluding skipped days.\n- **`generate_pdf_background`**: Background task function for generating journal entries and filling PDF templates.\n\n### Routing Behavior\nThe application uses FastAPI's routing system to map incoming requests to handlers.\n\n### Dependency Behavior\nThe application depends on external libraries and services, including `PyPDF2`, `dateutil`, and `gemini_helper`.\n\n### Middleware Behavior\nThe application uses CORS middleware to enable cross-origin resource sharing.\n\n### Lifecycle Management\nThe application uses a task queue to manage background tasks and ensures that tasks are executed efficiently and asynchronously.\n\n### Authentication Behavior\nThe application does not have explicit authentication mechanisms, but it may rely on external authentication services.\n\n### Serialization Behavior\nThe application uses Pydantic models for data serialization and deserialization.\n\n### Validation Behavior\nThe application uses Pydantic models for data validation.\n\n### Request Handling\nThe application handles incoming requests using FastAPI's routing system.\n\n### Response Handling\nThe application returns responses in JSON format using FastAPI's response system.\n\n### Data Flow Concepts\n- **Task Queue**: Manages background tasks for generating journal entries and filling PDF templates.\n- **Data Storage**: Stores task metadata and temporary files for task execution.\n\n### Internal Framework Concepts\n- **Background Tasks**: Execute tasks asynchronously using a task queue.\n- **Task Queue**: Manages background tasks for generating journal entries and filling PDF templates.\n\n## Solution\n### Refactoring\nRefactor the code to improve separation of concerns, reduce complexity, and eliminate technical debt.\n\n### Code Organization\nOrganize the code into clear and concise modules, each responsible for a specific functionality.\n\n### Testing\nImplement comprehensive testing to ensure the application's correctness and reliability.\n\n### Documentation\nDocument the application's architecture, APIs, and data flow concepts to facilitate maintenance and extension.",
+    "data/chats/62183445becc4ce289903818f270e738/repos/OJT-maker/test_pdf_filler.py": "## Overview\n### File Path\n`data/chats/62183445becc4ce289903818f270e738/repos/OJT-maker/test_pdf_filler.py`\n### Language\nPython 3\n### Purpose\nTest script for verifying PDF filler functionality\n\n## Issue\n### Subsystem Responsibilities\n- Verifies PDF filler functionality\n- Fills ojt_template.pdf with test data for all fields\n- Saves output as abc_filled.pdf\n\n### Architectural Role\n- Utilizes PDF filler library (pdf_filler) for filling PDFs\n- Interacts with file system for reading and writing PDF files\n\n## Explanation\n### Important APIs\n- `fill_pdf_with_overlay` from `pdf_filler` library\n- `os.path.exists` for checking file existence\n- `open` for reading and writing files\n\n### Important Classes\n- `test_pdf_filler` (main function)\n- `fill_pdf_with_overlay` (PDF filler function)\n\n### Important Functions\n- `test_pdf_filler` (main function)\n- `fill_pdf_with_overlay` (PDF filler function)\n\n### Routing Behavior\n- None (script runs locally)\n\n### Dependency Behavior\n- Depends on `pdf_filler` library\n- Depends on `os` library\n\n### Middleware Behavior\n- None (script runs directly)\n\n### Lifecycle Management\n- Runs once when script is executed\n\n### Authentication Behavior\n- None (no authentication required)\n\n### Serialization Behavior\n- Reads and writes PDF files in binary format\n\n### Validation Behavior\n- Verifies existence of ojt_template.pdf file\n- Verifies successful filling of PDF\n\n### Request Handling\n- None (script runs locally)\n\n### Response Handling\n- Prints success or error messages to console\n\n### Data Flow Concepts\n- Reads test data from Python dictionary\n- Fills PDF with test data using `fill_pdf_with_overlay` function\n\n### Internal Framework Concepts\n- Utilizes Python's built-in `open` function for file I/O\n- Utilizes `pdf_filler` library for PDF filling\n\n## Solution\n### Key Takeaways\n- Utilize `pdf_filler` library for filling PDFs\n- Verify existence of input PDF file\n- Verify successful filling of PDF\n- Save output as new PDF file\n\n### Future Improvements\n- Add error handling for cases where PDF filling fails\n- Improve test data generation for more comprehensive testing\n- Consider using a more robust PDF library for filling PDFs",
+    "data/chats/62183445becc4ce289903818f270e738/repos/OJT-maker/api/main.py": "## Overview\n### Subsystem Responsibilities\n- **API Gateway**: Handles incoming requests and routes them to the appropriate endpoint.\n- **Background Task**: Generates journal entries and fills PDFs in the background.\n- **Error Handling**: Catches and handles exceptions, including large upload errors.\n- **Middleware**: Configures CORS, sets max body size, and handles large payloads.\n- **Task Management**: Stores and cleans up background tasks.\n\n### Architectural Role\n- **Microservice**: The API acts as a microservice, handling specific tasks and interacting with external services.\n\n## Issue\n- **Large Uploads**: The API handles large PDF uploads, but errors occur when the file exceeds the 50MB limit.\n- **Background Tasks**: The background task generates journal entries and fills PDFs, but may fail if the API key is invalid.\n\n## Explanation\n### Important APIs\n- **generate_all_journals**: Generates all journal entries for a given API key and daily work.\n- **fill_pdf_with_overlay**: Fills a PDF with overlay data.\n\n### Important Classes\n- **FastAPI**: The API framework used to build the application.\n- **BackgroundTasks**: A utility for running background tasks.\n\n### Important Functions\n- **cleanup_old_tasks**: Removes tasks and temp files older than 1 hour.\n- **get_working_days**: Returns a list of date strings for Mon-Fri between start and end, excluding skip.\n- **generate_pdf_background**: Background thread: generate all journal entries and fill PDF.\n\n### Routing Behavior\n- **GET /**: The root endpoint.\n- **POST /**: Handles large PDF uploads.\n- **Background tasks**: Run in the background, generating journal entries and filling PDFs.\n\n### Dependency Behavior\n- **External services**: The API interacts with external services, such as the Gemini Helper and PDF Filler.\n\n### Middleware Behavior\n- **CORS**: Configured to allow cross-origin requests.\n- **Max body size**: Set to 100MB to handle large PDF uploads.\n\n### Lifecycle Management\n- **Task management**: Stores and cleans up background tasks.\n\n### Authentication Behavior\n- **API key**: Required for generating journal entries and filling PDFs.\n\n### Serialization Behavior\n- **JSON**: Used for serializing data.\n\n### Validation Behavior\n- **Pydantic**: Used for validating data.\n\n### Request Handling\n- **Large PDF uploads**: Handled using the `add_max_body_size` middleware.\n- **Background tasks**: Run in the background, generating journal entries and filling PDFs.\n\n### Response Handling\n- **JSON responses**: Used for responding to API requests.\n\n### Data Flow Concepts\n- **Background tasks**: Run in the background, generating journal entries and filling PDFs.\n- **Data storage**: Temp files stored on the server.\n\n### Internal Framework Concepts\n- **FastAPI**: The API framework used to build the application.\n- **BackgroundTasks**: A utility for running background tasks."
+  },
+  "metadata": {
+    "last_repo_url": "https://github.com/Va16hav07/OJT-maker.git",
+    "last_ingested_at": "2026-05-07T13:35:08.585811+00:00"
+  }
+}
