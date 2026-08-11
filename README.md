@@ -62,13 +62,11 @@ React Markdown
 
 ### AI Codebase Chat
 
-![AI-RepoExplainer Chat](<img width="1280" height="800" alt="Screenshot 2026-08-11 at 20 21 24" src="https://github.com/user-attachments/assets/b12535e1-fc81-4087-8db3-ea88a464d2cb" />
-)
+![AI-RepoExplainer Chat](./docs/screenshots/chat.png)
 
 ### Repository Explorer
 
-![AI-RepoExplainer Explorer](<img width="1280" height="800" alt="Screenshot 2026-08-11 at 20 21 31" src="https://github.com/user-attachments/assets/f160d6b4-28d7-447d-9a94-7e6a6681aca0" />
-)
+![AI-RepoExplainer Explorer](./docs/screenshots/explorer.png)
 
 
 
