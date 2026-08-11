@@ -44,17 +44,13 @@ Groq LLM
         ↓
 AI-Generated Answer
 Tech Stack
-
 Backend
-
 Python
 FastAPI
 Sentence Transformers
 FAISS
 Groq API
-
 Frontend
-
 React
 Vite
 Tailwind CSS
@@ -62,9 +58,9 @@ Axios
 React Markdown
 Screenshots
 AI Codebase Chat
-
+<img width="1280" height="800" alt="AI-RepoExplainer Chat" src="https://github.com/user-attachments/assets/3fbc1ecb-4a8a-4973-83c5-3095fca6bb31" />
 Repository Explorer
-
+<img width="1280" height="800" alt="AI-RepoExplainer Repository Explorer" src="https://github.com/user-attachments/assets/924fe0a5-3b5d-467e-bfcf-f63fa8a1668a" />
 Installation
 Backend
 git clone <your-repository-url>
@@ -137,10 +133,3 @@ Author
 Arpit Mishra
 
 B.Tech CSE (AI/ML)
-
-
-<img width="1280" height="800" alt="Screenshot 2026-08-11 at 20 21 24" src="https://github.com/user-attachments/assets/3fbc1ecb-4a8a-4973-83c5-3095fca6bb31" />
-
-
-<img width="1280" height="800" alt="Screenshot 2026-08-11 at 20 21 31" src="https://github.com/user-attachments/assets/924fe0a5-3b5d-467e-bfcf-f63fa8a1668a" />
-
