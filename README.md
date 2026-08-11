@@ -60,13 +60,17 @@ React Markdown
 
 ## Screenshots
 
-### AI Codebase Chat
+### 1️⃣ AI Codebase Chat
 
-![AI-RepoExplainer Chat](./docs/screenshots/chat.png)
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/3fbc1ecb-4a8a-4973-83c5-3095fca6bb31" width="650">
+</p>
 
-### Repository Explorer
+### 2️⃣ Repository Explorer
 
-![AI-RepoExplainer Explorer](./docs/screenshots/explorer.png)
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/924fe0a5-3b5d-467e-bfcf-f63fa8a1668" width="650">
+</p>
 
 
 
