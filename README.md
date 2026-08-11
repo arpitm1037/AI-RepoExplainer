@@ -56,11 +56,20 @@ Vite
 Tailwind CSS
 Axios
 React Markdown
-Screenshots
-AI Codebase Chat
-<img width="1280" height="800" alt="AI-RepoExplainer Chat" src="https://github.com/user-attachments/assets/3fbc1ecb-4a8a-4973-83c5-3095fca6bb31" />
-Repository Explorer
-<img width="1280" height="800" alt="AI-RepoExplainer Repository Explorer" src="https://github.com/user-attachments/assets/924fe0a5-3b5d-467e-bfcf-f63fa8a1668a" />
+
+
+## Screenshots
+
+### AI Codebase Chat
+
+![AI-RepoExplainer Chat](docs/screenshots/chat.png)
+
+### Repository Explorer
+
+![AI-RepoExplainer Explorer](docs/screenshots/explorer.png)
+
+
+
 Installation
 Backend
 git clone <your-repository-url>
