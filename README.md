@@ -58,19 +58,7 @@ Axios
 React Markdown
 
 
-## Screenshots
 
-### 1️⃣ AI Codebase Chat
-
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/b7f1630a-f71e-4f82-959a-e642895f6f38" width="650">
-</p>
-
-### 2️⃣ Repository Explorer
-
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/005d3d25-91c4-4b4e-b508-16fa81d1160e" width="650">
-</p>
 
 
 Installation
